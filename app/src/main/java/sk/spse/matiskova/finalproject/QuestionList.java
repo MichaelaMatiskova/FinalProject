@@ -1,11 +1,12 @@
 package sk.spse.matiskova.finalproject;
 
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class QuestionList {
 
     private String question;
-    private ArrayList<Integer> answers;
+    private Set<Integer> answers;
     private String usersSelectedAnswer;
 
     private String[] options = new String[8];
@@ -15,7 +16,8 @@ public class QuestionList {
 
         answer = answer.replace(" ", "");
         String[] temp = answer.trim().split(",");
-        answers = new ArrayList<>();
+        answers = new TreeSet<>();
+
         for (int i = 0; i < temp.length; i++) {
             answers.add(Integer.parseInt(temp[i]));
         }
@@ -41,7 +43,7 @@ public class QuestionList {
         return options[i];
     }
 
-    public ArrayList<Integer> getAnswer() {
+    public Set<Integer> getAnswer() {
         return answers;
     }
 

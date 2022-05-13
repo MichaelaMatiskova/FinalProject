@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class QuestionMain extends AppCompatActivity {
     private TextView question;
@@ -111,23 +112,19 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void revealAnswer() {
-        final ArrayList<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
+        final Set<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {
-            for (int j = 0; j < getAnswers.size(); j++) {
-                if (checks[i]) {
-                    if (i == getAnswers.get(j)) {
-                        buttons.get(i).setBackgroundColor(Color.GREEN);
-                        buttons.get(i).setTextColor(Color.WHITE);
-                        break;
-                    }
-                }
-                if (checks[i]) {
-                    buttons.get(i).setBackgroundColor(Color.RED);
-                    buttons.get(i).setTextColor(Color.WHITE);
-                    checkRed = true;
-                }
+            if (checks[i] && !getAnswers.contains(i)) {
+                buttons.get(i).setBackgroundColor(Color.RED);
+                buttons.get(i).setTextColor(Color.WHITE);
+                checkRed = true;
+            }
+
+            else if (getAnswers.contains(i)) {
+                buttons.get(i).setBackgroundColor(Color.GREEN);
+                buttons.get(i).setTextColor(Color.WHITE);
             }
         }
 

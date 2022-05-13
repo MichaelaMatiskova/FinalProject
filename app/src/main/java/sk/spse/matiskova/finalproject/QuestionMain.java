@@ -111,21 +111,26 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void revealAnswer() {
-        final String getAnswer = questionLists.get(currentQuestionPosition).getAnswer();
+        final ArrayList<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
         boolean checkRed = false;
+
         for (int i = 0; i < buttons.size(); i++) {
-            if (buttons.get(i).getText().toString().equals(getAnswer)) {
-                buttons.get(i).setBackgroundColor(Color.GREEN);
-                buttons.get(i).setTextColor(Color.WHITE);
+            for (int j = 0; j < getAnswers.size(); j++) {
+                if (checks[i]) {
+                    if (i == getAnswers.get(j)) {
+                        buttons.get(i).setBackgroundColor(Color.GREEN);
+                        buttons.get(i).setTextColor(Color.WHITE);
+                        break;
+                    }
+                }
+                if (checks[i]) {
+                    buttons.get(i).setBackgroundColor(Color.RED);
+                    buttons.get(i).setTextColor(Color.WHITE);
+                    checkRed = true;
+                }
             }
         }
 
-        for (int i = 0; i < buttons.size(); i++) {
-            if (checks[i] && !buttons.get(i).getText().toString().equals(getAnswer)) {
-                buttons.get(i).setBackgroundColor(Color.RED);
-                checkRed = true;
-            }
-        }
         if (!checkRed) {
             correctAnswer++;
         }

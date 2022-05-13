@@ -1,9 +1,11 @@
 package sk.spse.matiskova.finalproject;
 
+import java.util.ArrayList;
+
 public class QuestionList {
 
     private String question;
-    private String answer;
+    private ArrayList<Integer> answers;
     private String usersSelectedAnswer;
 
     private String[] options = new String[8];
@@ -11,7 +13,13 @@ public class QuestionList {
                         String optionE, String optionF, String optionG, String optionH, String answer, String usersSelectedAnswer) {
         this.question = question;
 
-        this.answer = answer;
+        answer = answer.replace(" ", "");
+        String[] temp = answer.trim().split(",");
+        answers = new ArrayList<>();
+        for (int i = 0; i < temp.length; i++) {
+            answers.add(Integer.parseInt(temp[i]));
+        }
+
         this.usersSelectedAnswer = usersSelectedAnswer;
 
         this.options[0] = optionA;
@@ -33,8 +41,8 @@ public class QuestionList {
         return options[i];
     }
 
-    public String getAnswer() {
-        return answer;
+    public ArrayList<Integer> getAnswer() {
+        return answers;
     }
 
     public String getUsersSelectedAnswer() {

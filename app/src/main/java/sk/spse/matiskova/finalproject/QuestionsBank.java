@@ -13,20 +13,20 @@ public class QuestionsBank {
 
         final QuestionList question1 = new QuestionList("H<sub>2</sub>SO<sub>5</sub> je kyselina peroxosiričitá",
                 "fykocyanin", "fykoerytrin", "karotenoid", "fukoxantin",
-                "xantofyl", "karoten", "sinicový škrob", "bakteriochlorofyl", "fykocyanin", "");
+                "xantofyl", "karoten", "sinicový škrob", "bakteriochlorofyl", "0,1", "");
 
         final QuestionList question2 = new QuestionList("Kožné alebo pl'úcne ochorenia človeka sposobuje:", "pleseň hlavičkatá", "Penicillium notatum",
                 "Candida albicans", "Candida niger", "Mucor mucedo", "kyjanicka purpurova",
-                "paplesen stetkovita", "Aspergillus niger", "Candida albicans", "");
+                "paplesen stetkovita", "Aspergillus niger", "1", "");
 
         final QuestionList question3 = new QuestionList("Pre čel'ad' astrovite je charakteristické súkvetie:", "ubor", "suľok", "pavidlica",
-                "chocholik", "hlavka", "strapec", "okolik", "metlina", "ubor", "");
+                "chocholik", "hlavka", "strapec", "okolik", "metlina", "0", "");
 
         final QuestionList question4 = new QuestionList("Pre ktorú čel'ad' je najtypickejšie súkvetie okolik:", "mrkovite", "lipnicovité",
-                "hlichavkovité", "bôbovité", "silenkovité", "astrovité", "ružovité", "ľaliovité", "mrkovite", "");
+                "hlichavkovité", "bôbovité", "silenkovité", "astrovité", "ružovité", "ľaliovité", "0", "");
 
         final QuestionList question5 = new QuestionList("Druhovo najbohatším kmeňom živošíchov sú: ", "Insecta", "obrúčkavce", "chordáty", "článkonožce",
-                "mäkkýše", "pŕhlivce", "hmyz", "stavovce", "článkonožce", "");
+                "mäkkýše", "pŕhlivce", "hmyz", "stavovce", "3", "");
 
         questionLists.add(question1);
         questionLists.add(question2);

@@ -36,11 +36,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void alertDialog() {
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle("Koľko otázok z " + userTopic + " chceš mať v kvíze? ");
         final EditText count = new EditText(MainActivity.this);
+        count.setHint("<5,20>");
         count.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialog.setView(count);
+
 
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

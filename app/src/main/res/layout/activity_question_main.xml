@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#FDFDFD"
+    tools:context=".QuestionMain">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center"
+        android:text="This is biology question..."
+        android:textAlignment="center"
+        android:textColor="#3F51B5"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scrolling"
+        android:layout_width="1012dp"
+        android:layout_height="1069dp"
+        android:layout_below="@+id/question"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="-3dp"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/optionA"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option A"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionB"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option B"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionC"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option C"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionD"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="optionD"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionE"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option E"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionF"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option F"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionG"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option G"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/optionH"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#1D74BA"
+                android:text="option H"
+                android:textSize="20sp"
+                app:strokeColor="#2196F3"
+                app:strokeWidth="2dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp">
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginBottom="9dp"
+                    android:layout_toStartOf="@+id/nextButton"
+                    android:backgroundTint="#4CAF50"
+                    android:clickable="true"
+                    android:text="submit"
+                    android:textColor="#FBFBFB"
+                    android:textSize="24sp"
+                    app:cornerRadius="30dp" />
+
+                <Button
+                    android:id="@+id/nextButton"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginBottom="0dp"
+                    android:backgroundTint="#DD3D3D"
+                    android:clickable="true"
+                    android:text="next"
+                    android:textSize="24sp"
+                    app:cornerRadius="30dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

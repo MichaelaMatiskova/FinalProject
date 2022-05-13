@@ -153,9 +153,9 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void newQuestion(int index) {
-        question.setText(Html.fromHtml(String.valueOf((questionLists.get(index).getQuestion()))));
+        question.setText(Html.fromHtml(questionLists.get(index).getQuestion(), Html.FROM_HTML_MODE_COMPACT));
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).setText(Html.fromHtml(String.valueOf((questionLists.get(index).getOption(i)))));
+            buttons.get(i).setText(Html.fromHtml(questionLists.get(index).getOption(i), Html.FROM_HTML_MODE_COMPACT));
         }
 
         falseChecks();

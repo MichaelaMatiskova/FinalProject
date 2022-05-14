@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String userTopic;
     public static int numberOfQuestion;
+    public static QuestionLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,50 +46,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        String databaseName = "question_bank.sqlite";
-        Path directoryPath = Paths.get(
-                Environment.getExternalStorageDirectory().getPath()
-                , "Millionaire"//getPackageName()
-                , databaseName).toAbsolutePath();
-        String directoryPathStr = directoryPath.toString();
-        File externalStorageDb = new File(directoryPathStr);
-        if (!externalStorageDb.exists())
+        FilesystemManager filesystemManager = new FilesystemManager();
+        if (filesystemManager.IsDbInExternalStorage())
         {
             AssetManager am = getApplicationContext().getAssets();
-            InputStream assetDatabaseStream = null;
             try {
-                assetDatabaseStream = am.open(databaseName);
-            } catch (IOException e) {
-                e.printStackTrace();
+                filesystemManager.CopyDbToExternalStorage(am);
             }
-
-            try {
-                Files.createDirectories(directoryPath.getParent());
-                FileOutputStream dst = new FileOutputStream(externalStorageDb);
-
-                byte[] buffer = new byte[1024];
-                int read;
-                if (assetDatabaseStream != null) {
-                    do {
-                        read = assetDatabaseStream.read(buffer);
-                        if (read > 0) {
-                            dst.write(buffer, 0, read);
-                        }
-                    } while(read != -1);
-                    assetDatabaseStream.close();
-                }
-                dst.flush();
-                dst.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            catch (IOException e) {
+                Log.w("", "Cannot copy database to external storage, reason: " + e);
             }
         }
-
-        QuestionLoader loader = new QuestionLoader(directoryPathStr);
-        boolean result = loader.OpenReadOnlyDatabase();
-        loader.DoSomeSketchySelect();
-        loader.CloseDatabase();
-        Log.i("Super duper log", "Result is " + (result ? "SUCCESS" : "FAILURE"));
+        String dbPath = filesystemManager.GetExternalDatabasePath();
+        loader = new QuestionLoader(dbPath);
+        if (!loader.OpenReadOnlyDatabase()) {
+            Log.w("", "Cannot open database in path: " + dbPath);
+        }
 
         chemistryButton.setOnClickListener(view -> {
             userTopic = "chemistry";
@@ -100,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
             userTopic = "biology";
             alertDialog();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        loader.CloseDatabase();
+        super.onDestroy();
     }
 
     public void alertDialog() {

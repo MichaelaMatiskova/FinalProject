@@ -224,4 +224,8 @@ public class QuestionMain extends AppCompatActivity {
             buttons.get(i).setTextSize(20);
         }
     }
+
+    @Override
+    public void onBackPressed()
+    { }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#71C5C7">
+    android:background="#71C5C7"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,9 +14,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="@font/carter_one"
+        android:gravity="center"
         android:text="Výborne, úspešne si si obrúsil svoje vedomosti"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -30,7 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="203dp"
+        android:layout_marginTop="162dp"
         android:src="@drawable/dentist2" />
 
     <Button
@@ -40,19 +42,21 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="71dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="48dp"
         android:backgroundTint="#80DEEA"
         android:drawableTop="@drawable/ic_home"
+        android:gravity="center"
         android:text="Back home" />
 
     <TextView
         android:id="@+id/correctAnswers"
-        android:layout_width="266dp"
-        android:layout_height="61dp"
+        android:layout_width="326dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="198dp"
+        android:layout_marginBottom="172dp"
+        android:gravity="center"
         android:text="correct answer"
         android:textAlignment="center"
         android:textColor="#FFFFFF"

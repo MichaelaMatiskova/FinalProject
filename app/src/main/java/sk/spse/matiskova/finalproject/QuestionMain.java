@@ -86,9 +86,16 @@ public class QuestionMain extends AppCompatActivity {
         }
 
         submitButton.setOnClickListener(new View.OnClickListener() {
+            boolean checkEnterButton = false;
             @Override
             public void onClick(View view) {
-                if (checks.getClass().equals(false)) {
+                for (boolean check : checks) {
+                    if (check) {
+                        checkEnterButton = true;
+                        break;
+                    }
+                }
+                if (!checkEnterButton) {
                     Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -119,7 +126,6 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void revealAnswer() {
-        //final Set<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {
@@ -130,6 +136,9 @@ public class QuestionMain extends AppCompatActivity {
             }
 
             else if (actualQuestion.IsAnswerCorrect(i)) {
+                if (!checks[i]) {
+                    checkRed = true;
+                }
                 buttons.get(i).setBackgroundColor(Color.GREEN);
                 buttons.get(i).setTextColor(Color.WHITE);
             }
@@ -160,9 +169,22 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void newQuestion(int index) {
+        setSizeText();
+
         actualQuestion = loader.SelectQuestionFromTable(userTopic, index);
+        if (actualQuestion.GetQuestion().length() > 100) {
+            question.setTextSize(25);
+        }
         question.setText(Html.fromHtml(actualQuestion.GetQuestion(), Html.FROM_HTML_MODE_COMPACT));
         for (int i = 0; i < buttons.size(); i++) {
+            if (actualQuestion.GetAnswer(i).length() > 35) {
+                if (actualQuestion.GetAnswer(i).length() > 60) {
+                    buttons.get(i).setTextSize(13);
+                }
+                else {
+                    buttons.get(i).setTextSize(16);
+                }
+            }
             buttons.get(i).setText(Html.fromHtml(actualQuestion.GetAnswer(i), Html.FROM_HTML_MODE_COMPACT));
         }
         falseChecks();
@@ -194,5 +216,12 @@ public class QuestionMain extends AppCompatActivity {
             temp.add(rd.nextInt(questionCount) + 1);
         }
         questionsId.addAll(temp);
+    }
+
+    private void setSizeText() {
+        question.setTextSize(30);
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setTextSize(20);
+        }
     }
 }

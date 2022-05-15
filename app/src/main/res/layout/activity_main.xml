@@ -26,20 +26,20 @@
         android:layout_height="85dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="505dp"
+        android:layout_marginTop="444dp"
         android:layout_marginEnd="45dp"
         android:clickable="true"
         android:text="chemia" />
 
     <Button
         android:id="@+id/biologyButton"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="85dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="505dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="444dp"
+        android:layout_marginEnd="42dp"
         android:layout_toStartOf="@+id/chemistryButton"
         android:clickable="true"
         android:text="biologia" />

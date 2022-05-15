@@ -17,7 +17,7 @@ public class FinishActivity extends AppCompatActivity {
 
     Button homeButton;
     TextView correctA;
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,9 @@ public class FinishActivity extends AppCompatActivity {
         homeButton = findViewById(R.id.homeButton);
         correctA = findViewById(R.id.correctAnswers);
 
-        correctA.setText("Spravne odpovede " + correctAnswer + " / " + numberOfQuestion);
+        double average = (double) Math.round(( (double) correctAnswer / numberOfQuestion * 100) * 10) / 10;
+
+        correctA.setText("Spravne odpovede " + correctAnswer + " / " + numberOfQuestion + "\n V percentach: " + average + " %");
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +36,5 @@ public class FinishActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

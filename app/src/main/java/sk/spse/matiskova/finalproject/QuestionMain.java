@@ -1,5 +1,6 @@
 package sk.spse.matiskova.finalproject;
 
+import static sk.spse.matiskova.finalproject.MainActivity.loader;
 import static sk.spse.matiskova.finalproject.MainActivity.numberOfQuestion;
 import static sk.spse.matiskova.finalproject.MainActivity.userTopic;
 
@@ -18,13 +19,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class QuestionMain extends AppCompatActivity {
     private TextView question;
     private Button submitButton, nextButton;
 
-    private List<QuestionList> questionLists;
     private int currentQuestionPosition = 0;
 
     private boolean checkSubmit;
@@ -34,11 +36,17 @@ public class QuestionMain extends AppCompatActivity {
     private boolean[] checks = new boolean[8];
 
     public static int correctAnswer = 0;
+    public static ArrayList<Integer> questionsId = new ArrayList<>();
+
+    private Question actualQuestion;
+    Random rd = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
+
+        generateId();
 
         question = findViewById(R.id.question);
 
@@ -54,11 +62,10 @@ public class QuestionMain extends AppCompatActivity {
         submitButton = findViewById(R.id.submitButton);
         nextButton = findViewById(R.id.nextButton);
 
-        questionLists = QuestionsBank.getQuestions(userTopic);
 
         scrollView = findViewById(R.id.scrolling);
 
-        newQuestion(0);
+        newQuestion(questionsId.get(0));
 
         for (int i = 0; i < buttons.size(); i++) {
             int finalI = i;
@@ -112,17 +119,17 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void revealAnswer() {
-        final Set<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
+        //final Set<Integer> getAnswers = questionLists.get(currentQuestionPosition).getAnswer();
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {
-            if (checks[i] && !getAnswers.contains(i)) {
+            if (checks[i] && !actualQuestion.IsAnswerCorrect(i)) {
                 buttons.get(i).setBackgroundColor(Color.RED);
                 buttons.get(i).setTextColor(Color.WHITE);
                 checkRed = true;
             }
 
-            else if (getAnswers.contains(i)) {
+            else if (actualQuestion.IsAnswerCorrect(i)) {
                 buttons.get(i).setBackgroundColor(Color.GREEN);
                 buttons.get(i).setTextColor(Color.WHITE);
             }
@@ -143,7 +150,7 @@ public class QuestionMain extends AppCompatActivity {
 
         if (currentQuestionPosition < numberOfQuestion) {
 
-            newQuestion(currentQuestionPosition);
+            newQuestion(questionsId.get(currentQuestionPosition));
 
             for (int i = 0; i < buttons.size(); i++) {
                 buttons.get(i).setBackgroundColor(Color.parseColor("#1D74BA"));
@@ -153,11 +160,11 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void newQuestion(int index) {
-        question.setText(Html.fromHtml(questionLists.get(index).getQuestion(), Html.FROM_HTML_MODE_COMPACT));
+        actualQuestion = loader.SelectQuestionFromTable(userTopic, index);
+        question.setText(Html.fromHtml(actualQuestion.GetQuestion(), Html.FROM_HTML_MODE_COMPACT));
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).setText(Html.fromHtml(questionLists.get(index).getOption(i), Html.FROM_HTML_MODE_COMPACT));
+            buttons.get(i).setText(Html.fromHtml(actualQuestion.GetAnswer(i), Html.FROM_HTML_MODE_COMPACT));
         }
-
         falseChecks();
         scrollView.scrollTo(0,0);
     }
@@ -178,5 +185,14 @@ public class QuestionMain extends AppCompatActivity {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setClickable(true);
         }
+    }
+
+    private void generateId() {
+        Set<Integer> temp = new TreeSet<>();
+        int questionCount = loader.getRowCount(userTopic);
+        while (temp.size() != numberOfQuestion) {
+            temp.add(rd.nextInt(questionCount) + 1);
+        }
+        questionsId.addAll(temp);
     }
 }

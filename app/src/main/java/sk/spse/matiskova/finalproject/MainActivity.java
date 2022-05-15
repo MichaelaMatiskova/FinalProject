@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FilesystemManager filesystemManager = new FilesystemManager();
-        if (filesystemManager.IsDbInExternalStorage())
+        if (!filesystemManager.IsDbInExternalStorage())
         {
             AssetManager am = getApplicationContext().getAssets();
             try {

@@ -20,6 +20,7 @@ public class QuestionLoader {
     Question SelectQuestionFromTable(String tableId, int id) {
         String query = "SELECT * FROM " + tableId + " WHERE id=?";
         Cursor cs = db.rawQuery(query, new String[]{ String.valueOf(id) });
+        cs.moveToFirst();
         String[] answers = new String[8];
         for (int i = 0; i < 8; ++i) {
             answers[i] = cs.getString(i + 2);
@@ -29,15 +30,13 @@ public class QuestionLoader {
         return q;
     }
 
-    void DoSomeSketchySelect() {
-        Cursor cs = db.rawQuery("SELECT * FROM chemistry WHERE id=1", null);
-        //db.execSQL("SELECT * FROM chemisty WHERE id=1");
+    public int getRowCount(String tableId) {
+        String query = "SELECT COUNT(*) FROM " + tableId;
+        Cursor cs = db.rawQuery(query, null);
         cs.moveToFirst();
-        Log.i("Super duper tag",
-                "Question is: " + cs.getString(1)
-                        + "first option is: " + cs.getString(2)
-                        + "last option is: " + cs.getString(9)
-                        + "correct answers are: " + cs.getString(10));
+        int count = cs.getInt(0);
+        cs.close();
+        return count;
     }
 
     void CloseDatabase() {

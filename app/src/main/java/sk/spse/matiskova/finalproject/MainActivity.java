@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Zub v hrsti");
+
         Button chemistryButton = findViewById(R.id.chemistryButton);
         Button biologyButton = findViewById(R.id.biologyButton);
 
@@ -84,7 +86,12 @@ public class MainActivity extends AppCompatActivity {
     public void alertDialog() {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("Koľko otázok z " + userTopic + " chceš mať v kvíze? ");
+        if (userTopic.equals("chemistry")) {
+            dialog.setTitle("Koľko otázok z chemie chceš mať v kvíze? ");
+        }
+        else {
+            dialog.setTitle("Koľko otázok z biologie chceš mať v kvíze? ");
+        }
         final EditText count = new EditText(MainActivity.this);
         count.setHint("<5,20>");
         count.setInputType(InputType.TYPE_CLASS_NUMBER);

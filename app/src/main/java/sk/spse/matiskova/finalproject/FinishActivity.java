@@ -23,6 +23,8 @@ public class FinishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
 
+        getSupportActionBar().setTitle("Zub v hrsti");
+        
         homeButton = findViewById(R.id.homeButton);
         correctA = findViewById(R.id.correctAnswers);
 

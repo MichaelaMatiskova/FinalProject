@@ -29,7 +29,8 @@
         android:layout_marginTop="444dp"
         android:layout_marginEnd="45dp"
         android:clickable="true"
-        android:text="chemia" />
+        android:text="chemia"
+        app:cornerRadius="20" />
 
     <Button
         android:id="@+id/biologyButton"
@@ -42,6 +43,7 @@
         android:layout_marginEnd="42dp"
         android:layout_toStartOf="@+id/chemistryButton"
         android:clickable="true"
-        android:text="biologia" />
+        android:text="biologia"
+        app:cornerRadius="20" />
 
 </RelativeLayout>

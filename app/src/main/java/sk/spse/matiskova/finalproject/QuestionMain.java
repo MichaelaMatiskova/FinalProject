@@ -102,6 +102,7 @@ public class QuestionMain extends AppCompatActivity {
                     revealAnswer();
                     clicableOFF();
                     checkSubmit = true;
+                    checkEnterButton = false;
                 }
             }
         });
@@ -210,6 +211,7 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void generateId() {
+        questionsId.clear();
         Set<Integer> temp = new TreeSet<>();
         int questionCount = loader.getRowCount(userTopic);
         while (temp.size() != numberOfQuestion) {

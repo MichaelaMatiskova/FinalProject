@@ -47,7 +47,8 @@
         android:backgroundTint="#80DEEA"
         android:drawableTop="@drawable/ic_home"
         android:gravity="center"
-        android:text="Back home" />
+        android:text="Back home"
+        app:cornerRadius="10sp" />
 
     <TextView
         android:id="@+id/correctAnswers"

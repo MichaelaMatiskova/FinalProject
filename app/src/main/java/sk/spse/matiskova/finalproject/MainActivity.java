@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
+                    Toast.makeText(getApplicationContext(), "Wrong number of questions", Toast.LENGTH_LONG).show();
                     count.setText("");
                 }
             }

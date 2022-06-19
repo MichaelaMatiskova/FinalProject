@@ -12,16 +12,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FilesystemManager {
-
     private final String databaseName = "question_bank.sqlite";
     private final Path databasePath;
     private final String databasePathStr;
     private File externalStorageDbFile;
 
     public FilesystemManager() {
+        String dataFolder = "Millionaire";
         databasePath = Paths.get(
                 Environment.getExternalStorageDirectory().getPath()
-                , "Millionaire"
+                , dataFolder
                 , databaseName).toAbsolutePath();
         databasePathStr = databasePath.toString();
     }

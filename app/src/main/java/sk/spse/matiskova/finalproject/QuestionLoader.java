@@ -2,11 +2,10 @@ package sk.spse.matiskova.finalproject;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class QuestionLoader {
     private SQLiteDatabase db;
-    private String dbPath;
+    private final String dbPath;
 
     public QuestionLoader(String dbPath) {
         this.dbPath = dbPath;

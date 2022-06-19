@@ -1,9 +1,6 @@
 package sk.spse.matiskova.finalproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -16,14 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle("Zub v hrsti");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
 
         Button chemistryButton = findViewById(R.id.chemistryButton);
         Button biologyButton = findViewById(R.id.biologyButton);
@@ -97,28 +90,19 @@ public class MainActivity extends AppCompatActivity {
         count.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialog.setView(count);
 
-
-        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                numberOfQuestion = Integer.parseInt(count.getText().toString());
-                if (numberOfQuestion > 4 && numberOfQuestion < 21) {
-                    Intent intent = new Intent(MainActivity.this, QuestionMain.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Wrong number of questions", Toast.LENGTH_LONG).show();
-                    count.setText("");
-                }
+        dialog.setPositiveButton("OK", (dialogInterface, i) -> {
+            numberOfQuestion = Integer.parseInt(count.getText().toString());
+            if (numberOfQuestion > 4 && numberOfQuestion < 21) {
+                Intent intent = new Intent(MainActivity.this, QuestionMain.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Wrong number of questions", Toast.LENGTH_LONG).show();
+                count.setText("");
             }
         });
 
-        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
+        dialog.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.cancel());
         dialog.show();
     }
 

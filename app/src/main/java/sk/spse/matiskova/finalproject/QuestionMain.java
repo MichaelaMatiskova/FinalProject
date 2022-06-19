@@ -4,8 +4,6 @@ import static sk.spse.matiskova.finalproject.MainActivity.loader;
 import static sk.spse.matiskova.finalproject.MainActivity.numberOfQuestion;
 import static sk.spse.matiskova.finalproject.MainActivity.userTopic;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,8 +15,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -26,14 +26,14 @@ import java.util.TreeSet;
 
 public class QuestionMain extends AppCompatActivity {
     private TextView question;
-    private Button submitButton, nextButton;
+    private Button nextButton;
 
     private int currentQuestionPosition = 0;
 
     private boolean checkSubmit;
     private ScrollView scrollView;
 
-    private ArrayList<Button> buttons = new ArrayList<>();
+    private final ArrayList<Button> buttons = new ArrayList<>();
     private boolean[] checks = new boolean[8];
 
     public static int correctAnswer = 0;
@@ -53,18 +53,13 @@ public class QuestionMain extends AppCompatActivity {
 
         question = findViewById(R.id.question);
 
-        buttons.add(findViewById(R.id.optionA));
-        buttons.add(findViewById(R.id.optionB));
-        buttons.add(findViewById(R.id.optionC));
-        buttons.add(findViewById(R.id.optionD));
-        buttons.add(findViewById(R.id.optionE));
-        buttons.add(findViewById(R.id.optionF));
-        buttons.add(findViewById(R.id.optionG));
-        buttons.add(findViewById(R.id.optionH));
+        for (final int option : Arrays.asList(R.id.optionA, R.id.optionB, R.id.optionC, R.id.optionD,
+                R.id.optionE, R.id.optionF, R.id.optionG, R.id.optionH)) {
+            buttons.add(findViewById(option));
+        }
 
-        submitButton = findViewById(R.id.submitButton);
+        Button submitButton = findViewById(R.id.submitButton);
         nextButton = findViewById(R.id.nextButton);
-
 
         scrollView = findViewById(R.id.scrolling);
 
@@ -72,24 +67,22 @@ public class QuestionMain extends AppCompatActivity {
 
         for (int i = 0; i < buttons.size(); i++) {
             int finalI = i;
-            buttons.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!checks[finalI]) {
-                        buttons.get(finalI).setBackgroundColor(Color.WHITE);
-                        buttons.get(finalI).setTextColor(Color.BLUE);
-                        checks[finalI] = true;
-                    } else {
-                        buttons.get(finalI).setBackgroundColor(Color.parseColor("#1D74BA"));
-                        buttons.get(finalI).setTextColor(Color.WHITE);
-                        checks[finalI]  = false;
-                    }
+            buttons.get(i).setOnClickListener(view -> {
+                if (!checks[finalI]) {
+                    buttons.get(finalI).setBackgroundColor(Color.WHITE);
+                    buttons.get(finalI).setTextColor(Color.BLUE);
+                    checks[finalI] = true;
+                } else {
+                    buttons.get(finalI).setBackgroundColor(Color.parseColor("#1D74BA"));
+                    buttons.get(finalI).setTextColor(Color.WHITE);
+                    checks[finalI] = false;
                 }
             });
         }
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             boolean checkEnterButton = false;
+
             @Override
             public void onClick(View view) {
                 for (boolean check : checks) {
@@ -100,8 +93,7 @@ public class QuestionMain extends AppCompatActivity {
                 }
                 if (!checkEnterButton) {
                     Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     revealAnswer();
                     clicableOFF();
                     checkSubmit = true;
@@ -110,21 +102,17 @@ public class QuestionMain extends AppCompatActivity {
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!checkSubmit) {
-                    Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    changeNextquestion();
-                    clicableON();
-                }
+        nextButton.setOnClickListener(view -> {
+            if (!checkSubmit) {
+                Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
+            } else {
+                changeNextquestion();
+                clicableON();
+            }
 
-                if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
-                    Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
-                    startActivity(intent);
-                }
+            if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
+                Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -137,9 +125,7 @@ public class QuestionMain extends AppCompatActivity {
                 buttons.get(i).setBackgroundColor(Color.RED);
                 buttons.get(i).setTextColor(Color.WHITE);
                 checkRed = true;
-            }
-
-            else if (actualQuestion.IsAnswerCorrect(i)) {
+            } else if (actualQuestion.IsAnswerCorrect(i)) {
                 if (!checks[i]) {
                     checkRed = true;
                 }
@@ -184,15 +170,14 @@ public class QuestionMain extends AppCompatActivity {
             if (actualQuestion.GetAnswer(i).length() > 35) {
                 if (actualQuestion.GetAnswer(i).length() > 60) {
                     buttons.get(i).setTextSize(13);
-                }
-                else {
+                } else {
                     buttons.get(i).setTextSize(16);
                 }
             }
             buttons.get(i).setText(Html.fromHtml(actualQuestion.GetAnswer(i), Html.FROM_HTML_MODE_COMPACT));
         }
         falseChecks();
-        scrollView.scrollTo(0,0);
+        scrollView.scrollTo(0, 0);
     }
 
     private void falseChecks() {
@@ -231,6 +216,6 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    { }
+    public void onBackPressed() {
+    }
 }

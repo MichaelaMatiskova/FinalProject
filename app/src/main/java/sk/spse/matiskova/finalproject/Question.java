@@ -13,14 +13,21 @@ public class Question {
         this.question = question;
         if (possibleAnswers.length != 8)
             throw new IllegalArgumentException("Possible answers should have size 8!");
-        this.answers = possibleAnswers.clone();
+        this.answers = possibleAnswers;
         ParseCorrectAnswers(correctAnswers);
     }
 
     private void ParseCorrectAnswers(String correctAnswers) {
         correctAnswers = correctAnswers.replace(" ", "");
         String[] tempArr = correctAnswers.trim().split(",");
-        Arrays.stream(tempArr).map(Integer::parseInt).forEach(this.correctAnswers::add);
+        FillCorrectAnswers(tempArr);
+    }
+
+    private void FillCorrectAnswers(String[] rawAnswers)
+    {
+        Arrays.stream(rawAnswers)
+              .mapToInt(Integer::parseInt)
+              .forEach(this.correctAnswers::add);
     }
 
     public String GetQuestion() {

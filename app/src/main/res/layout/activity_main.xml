@@ -52,4 +52,16 @@
         android:textSize="18sp"
         app:cornerRadius="20sp" />
 
+    <ImageView
+        android:id="@+id/login"
+        android:layout_width="77dp"
+        android:layout_height="82dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="2dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/user"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </RelativeLayout>

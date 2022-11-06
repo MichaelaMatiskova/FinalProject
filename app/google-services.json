@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1099261261947",
+    "project_id": "medicina-vo-vrecku",
+    "storage_bucket": "medicina-vo-vrecku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099261261947:android:72c161ffbc9f737d440ade",
+        "android_client_info": {
+          "package_name": "sk.spse.matiskova.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1099261261947-s44m5ubl04ns5i0svlja7jbcdie9n54l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgmLzdbO0AfBxTNFM10L9B00YVHISYkV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1099261261947-s44m5ubl04ns5i0svlja7jbcdie9n54l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

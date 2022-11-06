@@ -3,6 +3,7 @@ package sk.spse.matiskova.finalproject;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,6 +12,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static int numberOfQuestion;
     public static QuestionLoader loader;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -35,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         Button chemistryButton = findViewById(R.id.chemistryButton);
         Button biologyButton = findViewById(R.id.biologyButton);
+        ImageView login = findViewById(R.id.login);
+
+        login.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {

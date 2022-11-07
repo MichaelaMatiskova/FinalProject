@@ -3,6 +3,7 @@ package sk.spse.matiskova.finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -32,7 +33,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
@@ -47,9 +48,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
 
         forgotPassword = findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(this);
+       // forgotPassword.setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -59,7 +61,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.signIn:
                 userLogin();
-                break;
+               break;
 
             //case R.id.forgotPassword:
               //  startActivity(new Intent(this, ForgotPassword.class));
@@ -111,9 +113,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         editTextPassword.setText("");
                     }
                     else {
-                        user.sendEmailVerification();
-                        Toast.makeText(Login.this, "Check your email to verification your account!", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
+                        finish();
                     }
                 }
                 else {

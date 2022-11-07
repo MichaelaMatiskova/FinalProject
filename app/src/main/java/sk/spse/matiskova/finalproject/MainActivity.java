@@ -41,11 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Button biologyButton = findViewById(R.id.biologyButton);
         ImageView login = findViewById(R.id.login);
 
-        login.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
-        });
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
@@ -70,9 +65,13 @@ public class MainActivity extends AppCompatActivity {
             Log.w("", "Cannot open database in path: " + dbPath);
         }
 
+        login.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        });
+
         chemistryButton.setOnClickListener(view -> {
             userTopic = "chemistry";
-
             alertDialog();
         });
 

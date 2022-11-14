@@ -17,10 +17,14 @@
         android:theme="@style/Theme.FinalProject">
         <activity
             android:name=".Login"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RegisterUser"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".FinishActivity"
             android:configChanges="orientation"

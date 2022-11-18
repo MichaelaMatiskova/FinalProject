@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
+
     private Button logout;
 
     private FirebaseUser user;
@@ -29,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String userID;
 
+    private static final String FILE_NAME = "myFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,15 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                StoredDataUsingSHaredPref(false);
             }
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
         reference = FirebaseDatabase.getInstance().getReference("users");
         userID = user.getUid();
+
 
         final TextView fullNameTextView = findViewById(R.id.fullName);
         final TextView emailAddressTextView = findViewById(R.id.emailAddress);
@@ -83,5 +89,11 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void StoredDataUsingSHaredPref(boolean ischecked) {
+        SharedPreferences.Editor editor = getSharedPreferences(FILE_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean("ischecked", ischecked);
+        editor.apply();
     }
 }

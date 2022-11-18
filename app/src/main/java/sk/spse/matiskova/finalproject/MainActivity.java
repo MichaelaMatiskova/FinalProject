@@ -2,6 +2,7 @@ package sk.spse.matiskova.finalproject;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.media.Image;
 import android.os.Build;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static int numberOfQuestion;
     public static QuestionLoader loader;
 
+    private static final String FILE_NAME = "myFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth fau = FirebaseAuth.getInstance();
         FirebaseUser fus = FirebaseAuth.getInstance().getCurrentUser();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
+        boolean ischecked = sharedPreferences.getBoolean("ischecked", false);
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
 
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         login.setOnClickListener(view -> {
-            if (fus != null) {
+            if (fus != null && ischecked) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }

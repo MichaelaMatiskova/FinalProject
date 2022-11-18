@@ -15,18 +15,20 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="E-mail address"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="10dp"/>
 
     <Button
         android:id="@+id/signIn"
         android:layout_width="337dp"
         android:layout_height="69dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="#0ED689"
         android:text="LOGIN"
         android:textColor="#FFFFFF"
@@ -34,7 +36,6 @@
         android:textStyle="bold"
         app:cornerRadius="20dip"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +44,17 @@
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
+        android:layout_height="31dp"
         android:layout_marginTop="20dp"
-        android:text="Forgot password?"
+        android:layout_marginEnd="36dp"
+        android:gravity="center"
+        android:text="Forgot password ?"
         android:textColor="#919090"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@id/signIn" />
 
     <TextView
@@ -73,7 +77,7 @@
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
         android:text="Sign up "
-        android:textColor="#FFE500"
+        android:textColor="#C6B520"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +110,9 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="10dp"/>
 
     <ImageView
         android:id="@+id/imageView4"
@@ -117,4 +123,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="134dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Remember me"
+        android:textColor="#919090"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +29,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
+    private static final String FILE_NAME = "myFile";
+    private CheckBox checkBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         editTextPassword = findViewById(R.id.password);
 
         progressBar = findViewById(R.id.progressBar);
+
+        checkBox = findViewById(R.id.checkBox);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -153,10 +160,14 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
                                     if (task.isSuccessful()){
                                         Toast.makeText(RegisterUser.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
+
                                         progressBar.setVisibility(View.GONE);
-                                        //RegisterUser.super.onBackPressed();
                                         startActivity(new Intent(RegisterUser.this, ProfileActivity.class));
-                                    }else{
+                                        StoredDataUsingSHaredPref(true);
+
+
+
+                                    } else {
                                         Toast.makeText(RegisterUser.this, "Failed to register. Try again!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         RegisterUser.super.onBackPressed();
@@ -168,5 +179,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                             progressBar.setVisibility(View.GONE);
                     }
                 });
+    }
+
+    private void StoredDataUsingSHaredPref(boolean ischecked) {
+        SharedPreferences.Editor editor = getSharedPreferences(FILE_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean("ischecked", ischecked);
+        editor.apply();
     }
 }

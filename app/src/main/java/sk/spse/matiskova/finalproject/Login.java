@@ -111,22 +111,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    if (user.isEmailVerified()) {
-                        startActivity(new Intent(Login.this, MainActivity.class));
-                        progressBar.setVisibility(View.GONE);
-                        editTextEmail.setText("");
-                        editTextPassword.setText("");
-                    }
-                    else {
-                        progressBar.setVisibility(View.GONE);
-                        finish();
-                    }
+                    progressBar.setVisibility(View.GONE);
+                    //finish();
+                    Intent intent = new Intent(Login.this, ProfileActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
                 }
                 else {
                     Toast.makeText(Login.this, "Failed to login! Please check you credentials", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        Login.super.onBackPressed();
     }
 
     private void forgotPassword() {

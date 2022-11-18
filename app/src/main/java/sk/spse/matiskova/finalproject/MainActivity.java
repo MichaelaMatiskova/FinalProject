@@ -19,6 +19,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseAuth fau = FirebaseAuth.getInstance();
+        FirebaseUser fus = FirebaseAuth.getInstance().getCurrentUser();
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
 
@@ -66,8 +72,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         login.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
+            if (fus != null) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
         });
 
         chemistryButton.setOnClickListener(view -> {

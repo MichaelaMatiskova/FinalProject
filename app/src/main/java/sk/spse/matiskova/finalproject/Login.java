@@ -39,6 +39,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
     private CheckBox checkBox;
 
+    public static boolean wasLoggingIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,13 +117,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     progressBar.setVisibility(View.GONE);
-                    //finish();
                     Intent intent = new Intent(Login.this, ProfileActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
                     if (checkBox.isChecked()) {
@@ -131,6 +130,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         StoredDataUsingSHaredPref(false);
                     }
 
+                    wasLoggingIn = true;
                 }
                 else {
                     Toast.makeText(Login.this, "Failed to login! Please check you credentials", Toast.LENGTH_LONG).show();

@@ -1,6 +1,9 @@
 package sk.spse.matiskova.finalproject;
 
+import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
+
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -31,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     public static String userTopic;
     public static int numberOfQuestion;
     public static QuestionLoader loader;
-
+    private FirebaseUser fus;
+    private boolean ischecked;
     private static final String FILE_NAME = "myFile";
 
     @Override
@@ -41,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseAuth fau = FirebaseAuth.getInstance();
-        FirebaseUser fus = FirebaseAuth.getInstance().getCurrentUser();
+        fus = FirebaseAuth.getInstance().getCurrentUser();
 
         SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
-        boolean ischecked = sharedPreferences.getBoolean("ischecked", false);
+        ischecked = sharedPreferences.getBoolean("ischecked", false);
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
 
@@ -78,14 +82,20 @@ public class MainActivity extends AppCompatActivity {
 
         login.setOnClickListener(view -> {
             if (fus != null && ischecked) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
+                //if (ischecked) {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                } //else if (wasLoggingIn) {
+                else if (fus != null && wasLoggingIn) {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
             else {
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
             }
         });
+
 
         chemistryButton.setOnClickListener(view -> {
             userTopic = "chemistry";
@@ -96,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
             userTopic = "biology";
             alertDialog();
         });
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return super.isDestroyed();
     }
 
     @Override
@@ -132,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.cancel());
         dialog.show();
+    }
+
+    private void StoredDataUsingSHaredPref(boolean ischecked) {
+        SharedPreferences.Editor editor = getSharedPreferences(FILE_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean("ischecked", ischecked);
+        editor.apply();
     }
 
     @Override

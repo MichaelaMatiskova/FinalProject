@@ -6,7 +6,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,8 +42,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
-      //  banner = findViewById(R.id.banner);
-       // banner.setOnClickListener(this);
+        //  banner = findViewById(R.id.banner);
+        // banner.setOnClickListener(this);
 
         registerUser = findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
@@ -59,10 +62,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-           // case R.id.banner:
-              //  startActivity(new Intent(this, MainActivity.class));
-            //    break;
-
             case R.id.registerUser:
                 registerUser();
                 break;

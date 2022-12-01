@@ -8,8 +8,11 @@ import androidx.core.app.ActivityCompat;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 
 
-    private Button logout;
+    private ImageView logout;
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -37,20 +40,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        logout = findViewById(R.id.signOut);
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                StoredDataUsingSHaredPref(false);
-            }
-        });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -70,11 +59,9 @@ public class ProfileActivity extends AppCompatActivity {
                 if (userProfile != null) {
                     String fullName = userProfile.fullName;
                     String email = userProfile.email;
-                    String age = userProfile.age;
 
                     fullNameTextView.setText(fullName);
                     emailAddressTextView.setText(email);
-                    ageTextView.setText(age);
                 }
             }
 
@@ -95,5 +82,27 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(FILE_NAME, MODE_PRIVATE).edit();
         editor.putBoolean("ischecked", ischecked);
         editor.apply();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.signOut) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            StoredDataUsingSHaredPref(false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

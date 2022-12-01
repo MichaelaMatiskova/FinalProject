@@ -28,12 +28,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
     private TextView registerUser;
-    private EditText editTextNickname, editTextAge, editTextEmail, editTextPassword;
+    private EditText editTextNickname, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
     private static final String FILE_NAME = "myFile";
-    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +48,10 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         registerUser.setOnClickListener(this);
 
         editTextNickname = findViewById(R.id.nickname);
-        editTextAge = findViewById(R.id.age);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
 
         progressBar = findViewById(R.id.progressBar);
-
-        checkBox = findViewById(R.id.checkBox);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -72,17 +68,10 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String nickname = editTextNickname.getText().toString().trim();
-        String age = editTextAge.getText().toString().trim();
 
         if (nickname.isEmpty()) {
             editTextNickname.setError("Full name is required");
             editTextEmail.requestFocus();
-            return;
-        }
-
-        if (age.isEmpty()) {
-            editTextAge.setError("Age is required");
-            editTextAge.requestFocus();
             return;
         }
 
@@ -117,7 +106,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(nickname, age, email);
+                            User user = new User(nickname, email);
 
                             FirebaseDatabase.getInstance().getReference("users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

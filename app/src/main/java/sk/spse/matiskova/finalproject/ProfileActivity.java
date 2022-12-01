@@ -22,9 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-
-    private ImageView logout;
-
     private FirebaseUser user;
     private DatabaseReference reference;
 
@@ -45,7 +42,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         final TextView fullNameTextView = findViewById(R.id.fullName);
         final TextView emailAddressTextView = findViewById(R.id.emailAddress);
-        final TextView ageTextView = findViewById(R.id.age);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

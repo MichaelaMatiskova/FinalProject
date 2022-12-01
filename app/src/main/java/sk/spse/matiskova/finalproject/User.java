@@ -2,13 +2,12 @@ package sk.spse.matiskova.finalproject;
 
 public class User {
 
-    public String fullName, age, email;
+    public String fullName, email;
 
     public User(){}
 
-    public User(String fullName, String age, String email) {
+    public User(String fullName, String email) {
         this.fullName = fullName;
-        this.age = age;
         this.email = email;
     }
 }

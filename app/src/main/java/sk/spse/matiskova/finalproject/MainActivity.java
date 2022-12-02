@@ -4,10 +4,12 @@ import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.media.Image;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean ischecked;
     private static final String FILE_NAME = "myFile";
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -61,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                 startActivity(intent);
             }
+        }
+
+        boolean isNetworkAvailable = isNetworkAvailable(Objects.requireNonNull(peekAvailableContext()));
+
+        if (isNetworkAvailable) {
+            login.setImageResource(R.drawable.profile);
+        }
+        else {
+            login.setImageResource(R.drawable.crossed_person);
+            login.setEnabled(false);
         }
 
         FilesystemManager filesystemManager = new FilesystemManager();
@@ -106,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
             userTopic = "biology";
             alertDialog();
         });
+
+
     }
 
     @Override
@@ -158,4 +174,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     { }
+
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 }

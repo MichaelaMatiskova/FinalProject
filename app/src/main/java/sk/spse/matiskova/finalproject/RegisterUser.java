@@ -26,7 +26,6 @@ import java.util.Objects;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
-
     private TextView registerUser;
     private EditText editTextNickname, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
@@ -40,9 +39,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_register_user);
 
         mAuth = FirebaseAuth.getInstance();
-
-        //  banner = findViewById(R.id.banner);
-        // banner.setOnClickListener(this);
 
         registerUser = findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);

@@ -133,7 +133,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     wasLoggingIn = true;
                 }
                 else {
-                    Toast.makeText(Login.this, "Failed to login! Please check you credentials", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, "Failed to login! Please check you credential or check your Internet connection.", Toast.LENGTH_LONG).show();
                 }
             }
         });

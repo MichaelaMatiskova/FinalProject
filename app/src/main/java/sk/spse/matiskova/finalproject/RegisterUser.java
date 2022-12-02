@@ -6,12 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,8 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import java.util.Objects;
-
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,7 +106,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
                                     if (task.isSuccessful()){
                                         Toast.makeText(RegisterUser.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
-
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(RegisterUser.this, ProfileActivity.class));
                                         StoredDataUsingSHaredPref(true);
@@ -120,7 +113,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
                                     } else {
-                                        Toast.makeText(RegisterUser.this, "Failed to register. Try again!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUser.this, "Failed to register. Try again! Check your Internet connection.", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         RegisterUser.super.onBackPressed();
                                     }

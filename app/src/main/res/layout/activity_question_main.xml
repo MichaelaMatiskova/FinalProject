@@ -49,92 +49,107 @@
 
             <Button
                 android:id="@+id/optionA"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option A"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionB"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option B"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionC"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option C"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionD"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
-                android:text="optionD"
+                android:backgroundTint="#A6C6DF"
+                android:text="option D"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionE"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option E"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionF"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option F"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionG"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option G"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <Button
                 android:id="@+id/optionH"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#1D74BA"
+                android:backgroundTint="#A6C6DF"
                 android:text="option H"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
+                app:cornerRadius="20sp"
                 app:strokeColor="#2196F3"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="3dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -154,7 +169,7 @@
                     android:backgroundTint="#4CAF50"
                     android:clickable="true"
                     android:text="submit"
-                    android:textColor="#FBFBFB"
+                    android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     app:cornerRadius="30dp" />
 
@@ -169,6 +184,7 @@
                     android:backgroundTint="#DD3D3D"
                     android:clickable="true"
                     android:text="next"
+                    android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     app:cornerRadius="30dp" />
             </RelativeLayout>

@@ -42,6 +42,8 @@ public class QuestionMain extends AppCompatActivity {
     private Question actualQuestion;
     Random rd = new Random();
 
+    private int textSize = 20;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,7 @@ public class QuestionMain extends AppCompatActivity {
                     buttons.get(finalI).setTextColor(Color.BLUE);
                     checks[finalI] = true;
                 } else {
-                    buttons.get(finalI).setBackgroundColor(Color.parseColor("#1D74BA"));
+                    buttons.get(finalI).setBackgroundColor(Color.parseColor("#A6C6DF"));
                     buttons.get(finalI).setTextColor(Color.WHITE);
                     checks[finalI] = false;
                 }
@@ -122,15 +124,15 @@ public class QuestionMain extends AppCompatActivity {
 
         for (int i = 0; i < buttons.size(); i++) {
             if (checks[i] && !actualQuestion.IsAnswerCorrect(i)) {
-                buttons.get(i).setBackgroundColor(Color.RED);
-                buttons.get(i).setTextColor(Color.WHITE);
+                //buttons.get(i).setBackgroundColor(Color.RED);
+                buttons.get(i).setTextColor(Color.RED);
                 checkRed = true;
             } else if (actualQuestion.IsAnswerCorrect(i)) {
                 if (!checks[i]) {
                     checkRed = true;
                 }
-                buttons.get(i).setBackgroundColor(Color.GREEN);
-                buttons.get(i).setTextColor(Color.WHITE);
+                //buttons.get(i).setBackgroundColor(Color.GREEN); FF0F6813
+                buttons.get(i).setTextColor(Color.parseColor("#FF0F6813"));
             }
         }
 
@@ -152,28 +154,24 @@ public class QuestionMain extends AppCompatActivity {
             newQuestion(questionsId.get(currentQuestionPosition));
 
             for (int i = 0; i < buttons.size(); i++) {
-                buttons.get(i).setBackgroundColor(Color.parseColor("#1D74BA"));
+                buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
                 buttons.get(i).setTextColor(Color.WHITE);
             }
         }
     }
 
     private void newQuestion(int index) {
-        setSizeText();
+        set20SizeText();
 
         actualQuestion = loader.SelectQuestionFromTable(userTopic, index);
+        setTextSize();
+
         if (actualQuestion.GetQuestion().length() > 100) {
             question.setTextSize(25);
         }
         question.setText(Html.fromHtml(actualQuestion.GetQuestion(), Html.FROM_HTML_MODE_COMPACT));
         for (int i = 0; i < buttons.size(); i++) {
-            if (actualQuestion.GetAnswer(i).length() > 35) {
-                if (actualQuestion.GetAnswer(i).length() > 60) {
-                    buttons.get(i).setTextSize(13);
-                } else {
-                    buttons.get(i).setTextSize(16);
-                }
-            }
+            buttons.get(i).setTextSize(textSize);
             buttons.get(i).setText(Html.fromHtml(actualQuestion.GetAnswer(i), Html.FROM_HTML_MODE_COMPACT));
         }
         falseChecks();
@@ -208,10 +206,24 @@ public class QuestionMain extends AppCompatActivity {
         questionsId.addAll(temp);
     }
 
-    private void setSizeText() {
+    private void set20SizeText() {
         question.setTextSize(30);
+        textSize = 20;
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setTextSize(20);
+        }
+    }
+
+    private void setTextSize() {
+        for (int i = 0; i < buttons.size(); i++) {
+
+            if (actualQuestion.GetAnswer(i).length() >= 35) {
+                if (actualQuestion.GetAnswer(i).length() >= 60) {
+                    textSize = 14;
+                } else {
+                    textSize = 16;
+                }
+            }
         }
     }
 

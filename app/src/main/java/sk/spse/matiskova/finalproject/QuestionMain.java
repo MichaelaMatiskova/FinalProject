@@ -123,6 +123,7 @@ public class QuestionMain extends AppCompatActivity {
 
         else {
             submitButton.setClickable(false);
+            clicableOFF();
             revealAnswerLearning();
 
             nextButton.setOnClickListener(view -> {

@@ -4,10 +4,13 @@ import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -16,10 +19,13 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -40,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser fus;
     private boolean ischecked;
     private static final String FILE_NAME = "myFile";
+
+    private Dialog dialog;
+    private EditText count;
+    private RadioButton testing_radioButton;
+    private RadioButton learning_radioButton;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -120,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
             userTopic = "biology";
             alertDialog();
         });
-
-
     }
 
     @Override
@@ -136,33 +145,74 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void alertDialog() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        if (userTopic.equals("chemistry")) {
-            dialog.setTitle("Koľko otázok z chemie chceš mať v kvíze? ");
-        }
-        else {
-            dialog.setTitle("Koľko otázok z biologie chceš mať v kvíze? ");
-        }
-        final EditText count = new EditText(MainActivity.this);
-        count.setHint("<5,20>");
-        count.setInputType(InputType.TYPE_CLASS_NUMBER);
-        dialog.setView(count);
+        Button ok = dialog.findViewById(R.id.ok_btn);
+        Button zrusit = dialog.findViewById(R.id.cancel_btn);
+        testing_radioButton = dialog.findViewById(R.id.testing_radioButton);
+        learning_radioButton = dialog.findViewById(R.id.learning_radioButton);
+        count = dialog.findViewById(R.id.count);
 
-        dialog.setPositiveButton("OK", (dialogInterface, i) -> {
-            numberOfQuestion = Integer.parseInt(count.getText().toString());
-            if (numberOfQuestion > 4 && numberOfQuestion < 21) {
-                Intent intent = new Intent(MainActivity.this, QuestionMain.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Wrong number of questions", Toast.LENGTH_LONG).show();
-                count.setText("");
+        dialog.show();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!count.getText().toString().equals("")) {
+                    numberOfQuestion = Integer.parseInt(count.getText().toString());
+                    if (numberOfQuestion > 4 && numberOfQuestion < 21) {
+                        Intent intent = new Intent(MainActivity.this, QuestionMain.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Nesprávny počet otázok, skus to ešte raz :)", Toast.LENGTH_LONG).show();
+                        count.setText("");
+                    }
+                }
+                else {
+                    dialog.dismiss();
+                }
             }
         });
 
-        dialog.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.cancel());
-        dialog.show();
+        zrusit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        testing_radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!testing_radioButton.isSelected() && !learning_radioButton.isSelected()) {
+                    testing_radioButton.setChecked(true);
+                    testing_radioButton.setSelected(true);
+                } else {
+                    testing_radioButton.setChecked(false);
+                    testing_radioButton.setSelected(false);
+                }
+            }
+        });
+
+        learning_radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!learning_radioButton.isSelected() && !testing_radioButton.isSelected()) {
+                    learning_radioButton.setChecked(true);
+                    learning_radioButton.setSelected(true);
+                } else {
+                    learning_radioButton.setChecked(false);
+                    learning_radioButton.setSelected(false);
+                }
+            }
+        });
     }
 
     private void StoredDataUsingSHaredPref(boolean ischecked) {

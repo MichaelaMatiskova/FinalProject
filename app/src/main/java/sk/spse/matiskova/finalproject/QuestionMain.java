@@ -9,6 +9,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -131,8 +133,14 @@ public class QuestionMain extends AppCompatActivity {
                 revealAnswerLearning();
 
                 if (nextButton.getText().toString().equals("Finish")) {
-                    Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
-                    startActivity(intent);
+                    final Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(QuestionMain.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }, 30000);
                 }
             });
         }

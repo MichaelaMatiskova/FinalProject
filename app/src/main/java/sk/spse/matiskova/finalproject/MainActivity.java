@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Dialog dialog;
     private EditText count;
-    private RadioButton testing_radioButton;
-    private RadioButton learning_radioButton;
+    public static Mode mode;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -89,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FilesystemManager filesystemManager = new FilesystemManager();
-        if (!filesystemManager.IsDbInExternalStorage())
-        {
+        if (!filesystemManager.IsDbInExternalStorage()) {
             AssetManager am = getApplicationContext().getAssets();
             try {
                 filesystemManager.CopyDbToExternalStorage(am);
@@ -99,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("", "Cannot copy database to external storage, reason: " + e);
             }
         }
+
         String dbPath = filesystemManager.GetExternalDatabasePath();
         loader = new QuestionLoader(dbPath);
         if (!loader.OpenReadOnlyDatabase()) {
@@ -107,14 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
         login.setOnClickListener(view -> {
             if (fus != null && ischecked) {
-                //if (ischecked) {
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                } //else if (wasLoggingIn) {
-                else if (fus != null && wasLoggingIn) {
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+            else if (fus != null && wasLoggingIn) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
             else {
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
@@ -154,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button ok = dialog.findViewById(R.id.ok_btn);
         Button zrusit = dialog.findViewById(R.id.cancel_btn);
-        testing_radioButton = dialog.findViewById(R.id.testing_radioButton);
-        learning_radioButton = dialog.findViewById(R.id.learning_radioButton);
+        RadioButton testing_radioButton = dialog.findViewById(R.id.testing_radioButton);
+        RadioButton learning_radioButton = dialog.findViewById(R.id.learning_radioButton);
         count = dialog.findViewById(R.id.count);
 
         dialog.show();
@@ -163,11 +161,17 @@ public class MainActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!count.getText().toString().equals("")) {
+                if (!count.getText().toString().equals("") && (testing_radioButton.isSelected() || learning_radioButton.isSelected())) {
                     numberOfQuestion = Integer.parseInt(count.getText().toString());
                     if (numberOfQuestion > 4 && numberOfQuestion < 21) {
                         Intent intent = new Intent(MainActivity.this, QuestionMain.class);
                         startActivity(intent);
+                        if (testing_radioButton.isSelected()) {
+                            mode = Mode.Testing;
+                        }
+                        else {
+                            mode = Mode.Learning;
+                        }
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Nesprávny počet otázok, skus to ešte raz :)", Toast.LENGTH_LONG).show();
@@ -229,4 +233,10 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
+    public enum Mode {
+        Learning,
+        Testing
+    }
+
 }

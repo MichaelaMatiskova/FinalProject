@@ -1,6 +1,7 @@
 package sk.spse.matiskova.finalproject;
 
 import static sk.spse.matiskova.finalproject.MainActivity.loader;
+import static sk.spse.matiskova.finalproject.MainActivity.mode;
 import static sk.spse.matiskova.finalproject.MainActivity.numberOfQuestion;
 import static sk.spse.matiskova.finalproject.MainActivity.userTopic;
 
@@ -82,44 +83,61 @@ public class QuestionMain extends AppCompatActivity {
             });
         }
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            boolean checkEnterButton = false;
+        if (mode == MainActivity.Mode.Testing) {
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                boolean checkEnterButton = false;
 
-            @Override
-            public void onClick(View view) {
-                for (boolean check : checks) {
-                    if (check) {
-                        checkEnterButton = true;
-                        break;
+                @Override
+                public void onClick(View view) {
+                    for (boolean check : checks) {
+                        if (check) {
+                            checkEnterButton = true;
+                            break;
+                        }
+                    }
+                    if (!checkEnterButton) {
+                        Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
+                    } else {
+                        revealAnswerTesting();
+                        clicableOFF();
+                        checkSubmit = true;
+                        checkEnterButton = false;
                     }
                 }
-                if (!checkEnterButton) {
-                    Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
+            });
+
+            nextButton.setOnClickListener(view -> {
+                if (!checkSubmit) {
+                    Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
                 } else {
-                    revealAnswer();
-                    clicableOFF();
-                    checkSubmit = true;
-                    checkEnterButton = false;
+                    changeNextquestion();
+                    clicableON();
                 }
-            }
-        });
 
-        nextButton.setOnClickListener(view -> {
-            if (!checkSubmit) {
-                Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
-            } else {
+                if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
+                    Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        else {
+            submitButton.setClickable(false);
+            revealAnswerLearning();
+
+            nextButton.setOnClickListener(view -> {
                 changeNextquestion();
-                clicableON();
-            }
+                revealAnswerLearning();
 
-            if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
-                Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
-                startActivity(intent);
-            }
-        });
+                if (nextButton.getText().toString().equals("Finish")) {
+                    Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
-    private void revealAnswer() {
+    private void revealAnswerTesting() {
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {
@@ -138,6 +156,15 @@ public class QuestionMain extends AppCompatActivity {
 
         if (!checkRed) {
             correctAnswer++;
+        }
+    }
+
+    private void revealAnswerLearning() {
+
+        for (int i = 0; i < buttons.size(); i++) {
+           if (actualQuestion.IsAnswerCorrect(i)) {
+               buttons.get(i).setBackgroundColor(Color.parseColor("#FF0F6813"));
+            }
         }
     }
 

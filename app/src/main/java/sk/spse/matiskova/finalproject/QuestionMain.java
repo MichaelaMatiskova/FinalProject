@@ -6,13 +6,16 @@ import static sk.spse.matiskova.finalproject.MainActivity.numberOfQuestion;
 import static sk.spse.matiskova.finalproject.MainActivity.userTopic;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -46,6 +49,10 @@ public class QuestionMain extends AppCompatActivity {
     Random rd = new Random();
 
     private int textSize = 20;
+    private Dialog dialog;
+    private TextView dialog_question;
+    private Button yes_btn;
+    private Button no_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,20 +140,108 @@ public class QuestionMain extends AppCompatActivity {
                 revealAnswerLearning();
 
                 if (nextButton.getText().toString().equals("Finish")) {
+                    nextButton.setClickable(false);
                     final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void run() {
-                            Intent intent = new Intent(QuestionMain.this, MainActivity.class);
-                            startActivity(intent);
+                            alertDialog();
+                            dialog_question.setText("Chceš si svoje vedomosti overiť v testovacom mode? ");
+
+                            yes_btn.setOnClickListener(view -> {
+                                dialog.dismiss();
+
+                                for (int i = 0; i < buttons.size(); i++) {
+                                    buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
+                                }
+
+                                for (int i = 0; i < buttons.size(); i++) {
+                                    int finalI = i;
+                                    buttons.get(i).setOnClickListener(view3 -> {
+                                        if (!checks[finalI]) {
+                                            buttons.get(finalI).setBackgroundColor(Color.WHITE);
+                                            buttons.get(finalI).setTextColor(Color.BLUE);
+                                            checks[finalI] = true;
+                                        } else {
+                                            buttons.get(finalI).setBackgroundColor(Color.parseColor("#A6C6DF"));
+                                            buttons.get(finalI).setTextColor(Color.WHITE);
+                                            checks[finalI] = false;
+                                        }
+                                    });
+                                }
+
+                                currentQuestionPosition = 0;
+                                newQuestion(questionsId.get(0));
+                                clicableON();
+                                nextButton.setText("Next");
+                                submitButton.setOnClickListener(new View.OnClickListener() {
+                                    boolean checkEnterButton = false;
+
+                                    @Override
+                                    public void onClick(View view) {
+                                        for (boolean check : checks) {
+                                            if (check) {
+                                                checkEnterButton = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!checkEnterButton) {
+                                            Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            revealAnswerTesting();
+                                            clicableOFF();
+                                            checkSubmit = true;
+                                            checkEnterButton = false;
+                                        }
+                                    }
+                                });
+
+                                nextButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (!checkSubmit) {
+                                            Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            changeNextquestion();
+                                            clicableON();
+                                        }
+
+                                        if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
+                                            Intent intent2 = new Intent(QuestionMain.this, FinishActivity.class);
+                                            startActivity(intent2);
+                                        }
+                                    }
+                                });
+                            });
+
+                            no_btn.setOnClickListener(view -> {
+                                Intent intent = new Intent(QuestionMain.this, MainActivity.class);
+                                startActivity(intent);
+                            });
                         }
-                    }, 30000);
+                    }, 10000);
                 }
             });
         }
     }
 
-    private void revealAnswerTesting() {
+    public void alertDialog() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_yes_no_answer);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+        yes_btn = dialog.findViewById(R.id.yes_btn);
+        no_btn = dialog.findViewById(R.id.no_btn);
+        dialog_question = dialog.findViewById(R.id.dialog_question);
+
+        dialog.show();
+    }
+
+        private void revealAnswerTesting() {
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {

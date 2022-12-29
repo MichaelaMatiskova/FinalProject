@@ -2,8 +2,6 @@ package sk.spse.matiskova.finalproject;
 
 import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
 
-import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,26 +9,22 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -144,14 +138,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void alertDialog() {
         dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog_layout);
+        dialog.setContentView(R.layout.custom_dialog_count_of_questions);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false); //Optional
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
-        Button ok = dialog.findViewById(R.id.ok_btn);
-        Button zrusit = dialog.findViewById(R.id.cancel_btn);
+        Button ok = dialog.findViewById(R.id.yes_btn);
+        Button zrusit = dialog.findViewById(R.id.no_btn);
         RadioButton testing_radioButton = dialog.findViewById(R.id.testing_radioButton);
         RadioButton learning_radioButton = dialog.findViewById(R.id.learning_radioButton);
         count = dialog.findViewById(R.id.count);
@@ -195,12 +189,14 @@ public class MainActivity extends AppCompatActivity {
         testing_radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!testing_radioButton.isSelected() && !learning_radioButton.isSelected()) {
+                if (!learning_radioButton.isSelected()) {
                     testing_radioButton.setChecked(true);
                     testing_radioButton.setSelected(true);
                 } else {
-                    testing_radioButton.setChecked(false);
-                    testing_radioButton.setSelected(false);
+                    testing_radioButton.setChecked(true);
+                    testing_radioButton.setSelected(true);
+                    learning_radioButton.setChecked(false);
+                    learning_radioButton.setSelected(false);
                 }
             }
         });
@@ -208,12 +204,14 @@ public class MainActivity extends AppCompatActivity {
         learning_radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!learning_radioButton.isSelected() && !testing_radioButton.isSelected()) {
+                if (!testing_radioButton.isSelected()) {
                     learning_radioButton.setChecked(true);
                     learning_radioButton.setSelected(true);
                 } else {
-                    learning_radioButton.setChecked(false);
-                    learning_radioButton.setSelected(false);
+                    learning_radioButton.setChecked(true);
+                    learning_radioButton.setSelected(true);
+                    testing_radioButton.setChecked(false);
+                    testing_radioButton.setSelected(false);
                 }
             }
         });

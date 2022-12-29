@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/signIn" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dialog_question"
         android:layout_width="167dp"
         android:layout_height="31dp"
         android:layout_marginStart="80dp"
@@ -83,8 +83,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/dialog_question"
+        app:layout_constraintTop_toTopOf="@+id/dialog_question"
         app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar

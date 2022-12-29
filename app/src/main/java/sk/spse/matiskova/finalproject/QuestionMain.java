@@ -33,6 +33,7 @@ import java.util.TreeSet;
 public class QuestionMain extends AppCompatActivity {
     private TextView question;
     private Button nextButton;
+    private Button submitButton;
 
     private int currentQuestionPosition = 0;
 
@@ -70,69 +71,19 @@ public class QuestionMain extends AppCompatActivity {
             buttons.add(findViewById(option));
         }
 
-        Button submitButton = findViewById(R.id.submitButton);
+        submitButton = findViewById(R.id.submitButton);
         nextButton = findViewById(R.id.nextButton);
-
         scrollView = findViewById(R.id.scrolling);
 
         newQuestion(questionsId.get(0));
 
-        for (int i = 0; i < buttons.size(); i++) {
-            int finalI = i;
-            buttons.get(i).setOnClickListener(view -> {
-                if (!checks[finalI]) {
-                    buttons.get(finalI).setBackgroundColor(Color.WHITE);
-                    buttons.get(finalI).setTextColor(Color.BLUE);
-                    checks[finalI] = true;
-                } else {
-                    buttons.get(finalI).setBackgroundColor(Color.parseColor("#A6C6DF"));
-                    buttons.get(finalI).setTextColor(Color.WHITE);
-                    checks[finalI] = false;
-                }
-            });
-        }
-
         if (mode == MainActivity.Mode.Testing) {
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                boolean checkEnterButton = false;
-
-                @Override
-                public void onClick(View view) {
-                    for (boolean check : checks) {
-                        if (check) {
-                            checkEnterButton = true;
-                            break;
-                        }
-                    }
-                    if (!checkEnterButton) {
-                        Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
-                    } else {
-                        revealAnswerTesting();
-                        clicableOFF();
-                        checkSubmit = true;
-                        checkEnterButton = false;
-                    }
-                }
-            });
-
-            nextButton.setOnClickListener(view -> {
-                if (!checkSubmit) {
-                    Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
-                } else {
-                    changeNextquestion();
-                    clicableON();
-                }
-
-                if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
-                    Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
-                    startActivity(intent);
-                }
-            });
+            startTest();
         }
 
         else {
             submitButton.setClickable(false);
-            clicableOFF();
+            clickableOff();
             revealAnswerLearning();
 
             nextButton.setOnClickListener(view -> {
@@ -151,68 +102,9 @@ public class QuestionMain extends AppCompatActivity {
 
                             yes_btn.setOnClickListener(view -> {
                                 dialog.dismiss();
-
-                                for (int i = 0; i < buttons.size(); i++) {
-                                    buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
-                                }
-
-                                for (int i = 0; i < buttons.size(); i++) {
-                                    int finalI = i;
-                                    buttons.get(i).setOnClickListener(view3 -> {
-                                        if (!checks[finalI]) {
-                                            buttons.get(finalI).setBackgroundColor(Color.WHITE);
-                                            buttons.get(finalI).setTextColor(Color.BLUE);
-                                            checks[finalI] = true;
-                                        } else {
-                                            buttons.get(finalI).setBackgroundColor(Color.parseColor("#A6C6DF"));
-                                            buttons.get(finalI).setTextColor(Color.WHITE);
-                                            checks[finalI] = false;
-                                        }
-                                    });
-                                }
-
                                 currentQuestionPosition = 0;
-                                newQuestion(questionsId.get(0));
-                                clicableON();
                                 nextButton.setText("Next");
-                                submitButton.setOnClickListener(new View.OnClickListener() {
-                                    boolean checkEnterButton = false;
-
-                                    @Override
-                                    public void onClick(View view) {
-                                        for (boolean check : checks) {
-                                            if (check) {
-                                                checkEnterButton = true;
-                                                break;
-                                            }
-                                        }
-                                        if (!checkEnterButton) {
-                                            Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            revealAnswerTesting();
-                                            clicableOFF();
-                                            checkSubmit = true;
-                                            checkEnterButton = false;
-                                        }
-                                    }
-                                });
-
-                                nextButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (!checkSubmit) {
-                                            Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            changeNextquestion();
-                                            clicableON();
-                                        }
-
-                                        if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
-                                            Intent intent2 = new Intent(QuestionMain.this, FinishActivity.class);
-                                            startActivity(intent2);
-                                        }
-                                    }
-                                });
+                                startTest();
                             });
 
                             no_btn.setOnClickListener(view -> {
@@ -224,6 +116,65 @@ public class QuestionMain extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void startTest() {
+        clickableOn();
+
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
+        }
+
+        for (int i = 0; i < buttons.size(); i++) {
+            int finalI = i;
+            buttons.get(i).setOnClickListener(view -> {
+                if (!checks[finalI]) {
+                    buttons.get(finalI).setBackgroundColor(Color.WHITE);
+                    buttons.get(finalI).setTextColor(Color.BLUE);
+                    checks[finalI] = true;
+                } else {
+                    buttons.get(finalI).setBackgroundColor(Color.parseColor("#A6C6DF"));
+                    buttons.get(finalI).setTextColor(Color.WHITE);
+                    checks[finalI] = false;
+                }
+            });
+        }
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            boolean checkEnterButton = false;
+
+            @Override
+            public void onClick(View view) {
+                for (boolean check : checks) {
+                    if (check) {
+                        checkEnterButton = true;
+                        break;
+                    }
+                }
+                if (!checkEnterButton) {
+                    Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
+                } else {
+                    revealAnswerTesting();
+                    clickableOff();
+                    checkSubmit = true;
+                    checkEnterButton = false;
+                }
+            }
+        });
+
+        nextButton.setOnClickListener(view -> {
+            if (!checkSubmit) {
+                Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
+            } else {
+                changeNextquestion();
+                clickableOn();
+            }
+
+            if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
+                Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void alertDialog() {
@@ -241,7 +192,7 @@ public class QuestionMain extends AppCompatActivity {
         dialog.show();
     }
 
-        private void revealAnswerTesting() {
+    private void revealAnswerTesting() {
         boolean checkRed = false;
 
         for (int i = 0; i < buttons.size(); i++) {
@@ -315,13 +266,13 @@ public class QuestionMain extends AppCompatActivity {
         checks = new boolean[]{false, false, false, false, false, false, false, false};
     }
 
-    private void clicableOFF() {
+    private void clickableOff() {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setClickable(false);
         }
     }
 
-    private void clicableON() {
+    private void clickableOn() {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setClickable(true);
         }

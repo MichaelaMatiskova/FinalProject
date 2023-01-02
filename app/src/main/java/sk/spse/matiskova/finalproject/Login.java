@@ -134,6 +134,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
                 else {
                     Toast.makeText(Login.this, "Failed to login! Please check you credential or check your Internet connection.", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });

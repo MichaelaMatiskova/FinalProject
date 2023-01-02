@@ -27,12 +27,12 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView"
-        android:layout_width="199dp"
-        android:layout_height="197dp"
+        android:layout_width="178dp"
+        android:layout_height="159dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="162dp"
         android:src="@drawable/dentist2" />
 
@@ -43,12 +43,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="175dp"
         android:backgroundTint="#80DEEA"
         android:drawableTop="@drawable/ic_home"
         android:gravity="center"
-        android:text="Back home"
+        android:text="DOMOV"
         app:cornerRadius="10sp" />
 
     <TextView
@@ -57,12 +57,25 @@
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="172dp"
+        android:layout_marginBottom="309dp"
         android:gravity="center"
         android:text="correct answer"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/saveTest"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="82dp"
+        android:backgroundTint="#3BC3D5"
+        android:text="Uložiť test"
+        app:cornerRadius="10sp" />
 
 </RelativeLayout>

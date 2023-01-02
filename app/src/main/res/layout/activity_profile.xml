@@ -45,7 +45,7 @@
         app:srcCompat="@drawable/profile" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/test1"
         android:layout_width="345dp"
         android:layout_height="51dp"
         android:layout_marginTop="24dp"
@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/test1" />
 
     <Button
         android:id="@+id/button6"

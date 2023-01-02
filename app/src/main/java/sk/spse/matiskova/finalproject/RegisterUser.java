@@ -1,5 +1,7 @@
 package sk.spse.matiskova.finalproject;
 
+import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
@@ -60,7 +62,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String nickname = editTextNickname.getText().toString().trim();
 
         if (nickname.isEmpty()) {
-            editTextNickname.setError("Full name is required");
+            editTextNickname.setError("Nickname is required");
             editTextEmail.requestFocus();
             return;
         }
@@ -109,9 +111,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(RegisterUser.this, ProfileActivity.class));
                                         StoredDataUsingSHaredPref(true);
-
-
-
+                                        wasLoggingIn = true;
                                     } else {
                                         Toast.makeText(RegisterUser.this, "Failed to register. Try again! Check your Internet connection.", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);

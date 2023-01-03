@@ -92,7 +92,7 @@ public class FinishActivity extends AppCompatActivity {
                             long count = snapshot.getChildrenCount();
                             if (count < 8) {
                                 dr.child(userId).child("rewriteTest").setValue("test1");
-                                dr.child(userId).child("test" + (count - 2)).setValue(userTopic + " " + average + " " + questionsId.toString());
+                                dr.child(userId).child("test" + (count - 2)).setValue(userTopic + "/" + average + "/" + questionsId.toString());
                                 Intent intent = new Intent(FinishActivity.this, ProfileActivity.class);
                                 startActivity(intent);
                             }
@@ -111,7 +111,7 @@ public class FinishActivity extends AppCompatActivity {
                                             String x = (String) snapshot.child("rewriteTest").getValue();
                                             assert x != null;
                                             dr.child(userId).child(x).
-                                                    setValue(userTopic + " " + average + " " + questionsId.toString());
+                                                    setValue(userTopic + "/" + average + "/" + questionsId.toString());
                                             rewriteTest();
                                             Intent intent = new Intent(FinishActivity.this, ProfileActivity.class);
                                             startActivity(intent);

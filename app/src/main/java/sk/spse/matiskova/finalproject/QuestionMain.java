@@ -62,7 +62,18 @@ public class QuestionMain extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(userTopic);
 
-        generateId();
+        Intent intent = getIntent();
+        ArrayList<Integer> temp = intent.getIntegerArrayListExtra("questionId");
+
+        if (temp == null) {
+            generateId();
+        }
+        else {
+            questionsId.clear();
+            questionsId = temp;
+            userTopic = intent.getStringExtra("userTopic");
+            mode = MainActivity.Mode.Testing;
+        }
 
         question = findViewById(R.id.question);
 
@@ -249,7 +260,7 @@ public class QuestionMain extends AppCompatActivity {
         setTextSize();
 
         if (actualQuestion.GetQuestion().length() > 100) {
-            question.setTextSize(25);
+            question.setTextSize(20);
         }
         question.setText(Html.fromHtml(actualQuestion.GetQuestion(), Html.FROM_HTML_MODE_COMPACT));
         for (int i = 0; i < buttons.size(); i++) {
@@ -276,6 +287,7 @@ public class QuestionMain extends AppCompatActivity {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setClickable(true);
         }
+        nextButton.setClickable(true);
     }
 
     private void generateId() {
@@ -289,7 +301,7 @@ public class QuestionMain extends AppCompatActivity {
     }
 
     private void set20SizeText() {
-        question.setTextSize(30);
+        question.setTextSize(25);
         textSize = 20;
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setTextSize(20);

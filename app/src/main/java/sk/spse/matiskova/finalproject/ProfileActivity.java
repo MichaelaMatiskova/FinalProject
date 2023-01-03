@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button test1;
     private static final String FILE_NAME = "myFile";
-    private ArrayList<Integer> questionId;
+    private ArrayList<Integer> questionId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +78,59 @@ public class ProfileActivity extends AppCompatActivity {
                             test = test.replace(" ", "");
                             String[] text = test.split("/");
                             buttons.get(i).setText(text[0] + "          " + text[1] + "%");
+
+                            /*text[2] = text[2].substring(1, text[2].length() - 1);
+                            text[2] = text[2].replace(",", " ");
+                            String[] ids = text[2].split(" ");
+
+                            for (String id : ids) {
+                                questionId.add(Integer.valueOf(id));
+                            }*/
                         }
                         else {
                             buttons.get(i).setVisibility(View.INVISIBLE);
                         }
+
+                        /*buttons.get(i).setOnClickListener(view -> {
+                            Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
+                            intent.putExtra("questionId", questionId);
+                            startActivity(intent);
+                        });*/
                     }
                 }
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProfileActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int i = 0; i < buttons.size(); i++) {
+                    int finalI = i;
+                    buttons.get(i).setOnClickListener(view -> {
+                        String test = (String) snapshot.child(tests[finalI]).getValue();
+                        assert test != null;
+                        test = test.replace(" ", "");
+                        String[] text = test.split("/");
+                        text[2] = text[2].substring(1, text[2].length() - 1);
+                        text[2] = text[2].replace(",", " ");
+                        String[] ids = text[2].split(" ");
+
+                        for (String id : ids) {
+                            questionId.add(Integer.valueOf(id));
+                        }
+                        Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
+                        intent.putExtra("questionId", questionId);
+                        intent.putExtra("userTopic", text[0].trim());
+                        startActivity(intent);
+                    });
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ProfileActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();

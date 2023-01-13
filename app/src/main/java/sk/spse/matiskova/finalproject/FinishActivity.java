@@ -60,9 +60,7 @@ public class FinishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
 
-        getSupportActionBar().setTitle("Zub v hrsti");
-
-        SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Medicína v hrsti");
 
         homeButton = findViewById(R.id.homeButton);
         correctA = findViewById(R.id.correctAnswers);

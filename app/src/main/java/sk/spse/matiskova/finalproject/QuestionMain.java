@@ -62,7 +62,12 @@ public class QuestionMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle(userTopic);
+        if (userTopic.equals("biology")) {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Biológia");
+        }
+        else {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Chémia");
+        }
 
         Intent intent = getIntent();
         ArrayList<Integer> temp = intent.getIntegerArrayListExtra("questionId");

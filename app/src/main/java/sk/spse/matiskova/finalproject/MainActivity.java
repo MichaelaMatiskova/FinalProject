@@ -241,5 +241,4 @@ public class MainActivity extends AppCompatActivity {
         Learning,
         Testing
     }
-
 }

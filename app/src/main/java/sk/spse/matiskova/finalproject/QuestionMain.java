@@ -32,7 +32,8 @@ import java.util.TreeSet;
 
 public class QuestionMain extends AppCompatActivity {
     private TextView question;
-    private Button nextButton;
+    private Button nextButtonTesting;
+    private Button nextButtonLearning;
     private Button submitButton;
 
     private int currentQuestionPosition = 0;
@@ -55,6 +56,7 @@ public class QuestionMain extends AppCompatActivity {
     private Button yes_btn;
     private Button no_btn;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,26 +85,36 @@ public class QuestionMain extends AppCompatActivity {
         }
 
         submitButton = findViewById(R.id.submitButton);
-        nextButton = findViewById(R.id.nextButton);
+        nextButtonTesting = findViewById(R.id.nextButton);
+        nextButtonLearning = findViewById(R.id.nextButton2);
         scrollView = findViewById(R.id.scrolling);
 
         newQuestion(questionsId.get(0));
 
         if (mode == MainActivity.Mode.Testing) {
+            submitButton.setVisibility(View.VISIBLE);
+            nextButtonTesting.setVisibility(View.VISIBLE);
+            nextButtonLearning.setVisibility(View.INVISIBLE);
             startTest();
         }
 
         else {
-            submitButton.setClickable(false);
+            submitButton.setVisibility(View.INVISIBLE);
+            nextButtonTesting.setVisibility(View.INVISIBLE);
+            nextButtonLearning.setVisibility(View.VISIBLE);
             clickableOff();
             revealAnswerLearning();
 
-            nextButton.setOnClickListener(view -> {
+            nextButtonLearning.setOnClickListener(view -> {
                 changeNextquestion();
                 revealAnswerLearning();
 
-                if (nextButton.getText().toString().equals("Finish")) {
-                    nextButton.setClickable(false);
+                if (currentQuestionPosition + 1 == numberOfQuestion) {
+                    nextButtonLearning.setText("Finish");
+                }
+
+                if (nextButtonLearning.getText().toString().equals("Finish")) {
+                    nextButtonLearning.setClickable(false);
                     final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @SuppressLint("SetTextI18n")
@@ -114,7 +126,10 @@ public class QuestionMain extends AppCompatActivity {
                             yes_btn.setOnClickListener(view -> {
                                 dialog.dismiss();
                                 currentQuestionPosition = 0;
-                                nextButton.setText("Next");
+                                //nextButtonTesting.setText("Next");
+                                submitButton.setVisibility(View.VISIBLE);
+                                nextButtonTesting.setVisibility(View.VISIBLE);
+                                nextButtonLearning.setVisibility(View.INVISIBLE);
                                 startTest();
                             });
 
@@ -173,7 +188,7 @@ public class QuestionMain extends AppCompatActivity {
             }
         });
 
-        nextButton.setOnClickListener(view -> {
+        nextButtonTesting.setOnClickListener(view -> {
             if (!checkSubmit) {
                 Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
             } else {
@@ -181,7 +196,7 @@ public class QuestionMain extends AppCompatActivity {
                 clickableOn();
             }
 
-            if (nextButton.getText().toString().equals("Finish") && checkSubmit) {
+            if (nextButtonTesting.getText().toString().equals("Finish") && checkSubmit) {
                 Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
                 startActivity(intent);
             }
@@ -239,7 +254,7 @@ public class QuestionMain extends AppCompatActivity {
         currentQuestionPosition++;
 
         if (currentQuestionPosition + 1 == numberOfQuestion) {
-            nextButton.setText("Finish");
+            nextButtonTesting.setText("Finish");
         }
 
         if (currentQuestionPosition < numberOfQuestion) {
@@ -287,7 +302,7 @@ public class QuestionMain extends AppCompatActivity {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setClickable(true);
         }
-        nextButton.setClickable(true);
+        nextButtonTesting.setClickable(true);
     }
 
     private void generateId() {

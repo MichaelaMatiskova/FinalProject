@@ -17,7 +17,9 @@
         android:theme="@style/Theme.FinalProject">
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Login"
             android:configChanges="orientation"

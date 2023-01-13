@@ -171,6 +171,7 @@
                     android:text="submit"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
+                    android:visibility="visible"
                     app:cornerRadius="30dp" />
 
                 <Button
@@ -186,6 +187,24 @@
                     android:text="next"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
+                    android:visibility="visible"
+                    app:cornerRadius="30dp" />
+
+                <Button
+                    android:id="@+id/nextButton2"
+                    android:layout_width="320dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginBottom="0dp"
+                    android:backgroundTint="#DD3D3D"
+                    android:clickable="true"
+                    android:text="next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:visibility="invisible"
                     app:cornerRadius="30dp" />
             </RelativeLayout>
 

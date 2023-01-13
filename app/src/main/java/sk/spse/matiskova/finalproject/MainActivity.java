@@ -1,6 +1,6 @@
 package sk.spse.matiskova.finalproject;
 
-import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
+import static sk.spse.matiskova.finalproject.Login.currentlyLoggedIn;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static int numberOfQuestion;
     public static QuestionLoader loader;
     private FirebaseUser fus;
-    private boolean ischecked;
+    public static boolean alwaysLoggedIn;
     private static final String FILE_NAME = "myFile";
 
     private Dialog dialog;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         fus = FirebaseAuth.getInstance().getCurrentUser();
 
         SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
-        ischecked = sharedPreferences.getBoolean("ischecked", false);
+        alwaysLoggedIn = ReadDataUsingSHaredPref();
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
 
@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         login.setOnClickListener(view -> {
-            if (fus != null && ischecked) {
+            if (fus != null && alwaysLoggedIn) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
-            else if (fus != null && wasLoggingIn) {
+            else if (fus != null && currentlyLoggedIn) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
@@ -221,6 +221,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(FILE_NAME, MODE_PRIVATE).edit();
         editor.putBoolean("ischecked", ischecked);
         editor.apply();
+    }
+
+    private boolean ReadDataUsingSHaredPref() {
+        SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
+        return sharedPreferences.getBoolean("ischecked", false);
     }
 
     @Override

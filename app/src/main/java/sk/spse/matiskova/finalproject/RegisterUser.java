@@ -1,6 +1,6 @@
 package sk.spse.matiskova.finalproject;
 
-import static sk.spse.matiskova.finalproject.Login.wasLoggingIn;
+import static sk.spse.matiskova.finalproject.Login.currentlyLoggedIn;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,7 +111,10 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(RegisterUser.this, ProfileActivity.class));
                                         StoredDataUsingSHaredPref(true);
-                                        wasLoggingIn = true;
+                                        //dr.child(userId).child("rewriteTest").setValue("test1");
+                                        FirebaseDatabase.getInstance().getReference("users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rewriteTest").setValue("test1");
+                                        currentlyLoggedIn = true;
                                     } else {
                                         Toast.makeText(RegisterUser.this, "Failed to register. Try again! Check your Internet connection.", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);

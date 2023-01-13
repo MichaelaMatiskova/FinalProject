@@ -25,7 +25,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,7 +38,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
     private CheckBox checkBox;
 
-    public static boolean wasLoggingIn = false;
+    public static boolean currentlyLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +129,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         StoredDataUsingSHaredPref(false);
                     }
 
-                    wasLoggingIn = true;
+                    currentlyLoggedIn = true;
                 }
                 else {
                     Toast.makeText(Login.this, "Failed to login! Please check you credential or check your Internet connection.", Toast.LENGTH_LONG).show();
@@ -138,8 +137,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
-
-        //Login.super.onBackPressed();
     }
 
     private void StoredDataUsingSHaredPref(boolean ischecked) {

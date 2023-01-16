@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/navrh_app"
@@ -13,11 +14,9 @@
         android:id="@+id/chemistryButton"
         android:layout_width="280dp"
         android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="51dp"
-        android:layout_marginBottom="137dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="124dp"
         android:backgroundTint="#1D48A6"
         android:clickable="true"
         android:foregroundGravity="center"
@@ -26,19 +25,19 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:cornerRadius="20sp" />
+        app:cornerRadius="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/biologyButton"
         android:layout_width="280dp"
         android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="418dp"
-        android:layout_marginEnd="-280dp"
-        android:layout_toStartOf="@+id/chemistryButton"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#1D48A6"
         android:clickable="true"
         android:foregroundGravity="center"
@@ -47,18 +46,22 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:cornerRadius="20sp" />
+        app:cornerRadius="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/chemistryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/login"
-        android:layout_width="81dp"
-        android:layout_height="88dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_width="71dp"
+        android:layout_height="80dp"
         android:layout_marginStart="315dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/user" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

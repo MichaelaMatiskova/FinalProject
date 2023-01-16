@@ -1,5 +1,7 @@
 package sk.spse.matiskova.finalproject;
 
+import static sk.spse.matiskova.finalproject.Login.currentlyLoggedIn;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -124,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
                         for (String id : ids) {
                             questionId.add(Integer.valueOf(id));
                         }
+
                         Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
                         intent.putExtra("questionId", questionId);
                         intent.putExtra("userTopic", text[0].trim());
@@ -167,6 +169,7 @@ public class ProfileActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             StoredDataUsingSHaredPref(false);
+            currentlyLoggedIn = false;
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -67,7 +67,9 @@ public class FinishActivity extends AppCompatActivity {
         saveTest = findViewById(R.id.saveTest);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
+        if (user != null) {
+            userId = user.getUid();
+        }
 
 
         double average = (double) Math.round(( (double) correctAnswer / numberOfQuestion * 100) * 10) / 10;

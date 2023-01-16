@@ -62,23 +62,26 @@ public class QuestionMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
 
-        if (userTopic.equals("biology")) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle("Biológia");
-        }
-        else {
-            Objects.requireNonNull(getSupportActionBar()).setTitle("Chémia");
-        }
+        //Objects.requireNonNull(getSupportActionBar()).setTitle(userTopic);
 
         Intent intent = getIntent();
         ArrayList<Integer> temp = intent.getIntegerArrayListExtra("questionId");
 
         if (temp == null) {
             generateId();
+            if (userTopic.equals("biology")) {
+                Objects.requireNonNull(getSupportActionBar()).setTitle("Biológia");
+            }
+            else {
+                Objects.requireNonNull(getSupportActionBar()).setTitle("Chémia");
+            }
         }
         else {
             questionsId.clear();
             questionsId = temp;
+            numberOfQuestion = temp.size();
             userTopic = intent.getStringExtra("userTopic");
+            //userTopic = intent.getStringExtra("userTopic");
             mode = MainActivity.Mode.Testing;
         }
 
@@ -131,9 +134,10 @@ public class QuestionMain extends AppCompatActivity {
                             yes_btn.setOnClickListener(view -> {
                                 dialog.dismiss();
                                 currentQuestionPosition = 0;
-                                //nextButtonTesting.setText("Next");
+                                nextButtonTesting.setText("Next");
                                 submitButton.setVisibility(View.VISIBLE);
                                 nextButtonTesting.setVisibility(View.VISIBLE);
+                                //nextButtonTesting.setText("Next");
                                 nextButtonLearning.setVisibility(View.INVISIBLE);
                                 startTest();
                             });

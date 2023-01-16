@@ -94,6 +94,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @SuppressLint("SuspiciousIndentation")
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -122,9 +123,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                     }
                                 }
                             });
-                        } else
+                            progressBar.setVisibility(View.GONE);
+                        } else {
                             Toast.makeText(RegisterUser.this, "Failed to register.", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
+                        }
                     }
                 });
     }

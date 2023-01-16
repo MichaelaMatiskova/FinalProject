@@ -71,6 +71,7 @@ public class FinishActivity extends AppCompatActivity {
             userId = user.getUid();
         }
 
+        correctAnswer = 0;
 
         double average = (double) Math.round(( (double) correctAnswer / numberOfQuestion * 100) * 10) / 10;
 

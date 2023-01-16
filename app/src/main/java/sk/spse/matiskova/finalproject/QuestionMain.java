@@ -147,13 +147,14 @@ public class QuestionMain extends AppCompatActivity {
                                 startActivity(intent);
                             });
                         }
-                    }, 10000);
+                    }, 3000);
                 }
             });
         }
     }
 
     public void startTest() {
+        scrollView.scrollTo(0, 0);
         clickableOn();
 
         for (int i = 0; i < buttons.size(); i++) {

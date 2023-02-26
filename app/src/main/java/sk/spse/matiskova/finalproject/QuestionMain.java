@@ -9,7 +9,9 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -137,7 +139,6 @@ public class QuestionMain extends AppCompatActivity {
                                 nextButtonTesting.setText("Next");
                                 submitButton.setVisibility(View.VISIBLE);
                                 nextButtonTesting.setVisibility(View.VISIBLE);
-                                //nextButtonTesting.setText("Next");
                                 nextButtonLearning.setVisibility(View.INVISIBLE);
                                 startTest();
                             });
@@ -159,6 +160,7 @@ public class QuestionMain extends AppCompatActivity {
 
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
+            buttons.get(i).setAlpha(1f);
         }
 
         for (int i = 0; i < buttons.size(); i++) {
@@ -233,15 +235,15 @@ public class QuestionMain extends AppCompatActivity {
 
         for (int i = 0; i < buttons.size(); i++) {
             if (checks[i] && !actualQuestion.IsAnswerCorrect(i)) {
-                //buttons.get(i).setBackgroundColor(Color.RED);
-                buttons.get(i).setTextColor(Color.RED);
+                buttons.get(i).setBackgroundColor(Color.RED);
+                buttons.get(i).setTextColor(Color.WHITE);
                 checkRed = true;
             } else if (actualQuestion.IsAnswerCorrect(i)) {
                 if (!checks[i]) {
                     checkRed = true;
                 }
-                //buttons.get(i).setBackgroundColor(Color.GREEN); FF0F6813
-                buttons.get(i).setTextColor(Color.parseColor("#FF0F6813"));
+                buttons.get(i).setBackgroundColor(Color.parseColor("#FF0F6813"));
+                buttons.get(i).setTextColor(Color.WHITE);
             }
         }
 
@@ -250,12 +252,15 @@ public class QuestionMain extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("Range")
     private void revealAnswerLearning() {
-
         for (int i = 0; i < buttons.size(); i++) {
            if (actualQuestion.IsAnswerCorrect(i)) {
                buttons.get(i).setBackgroundColor(Color.parseColor("#FF0F6813"));
             }
+           else {
+               buttons.get(i).setAlpha(0.35f);
+           }
         }
     }
 
@@ -268,12 +273,11 @@ public class QuestionMain extends AppCompatActivity {
         }
 
         if (currentQuestionPosition < numberOfQuestion) {
-
             newQuestion(questionsId.get(currentQuestionPosition));
-
             for (int i = 0; i < buttons.size(); i++) {
                 buttons.get(i).setBackgroundColor(Color.parseColor("#A6C6DF"));
                 buttons.get(i).setTextColor(Color.WHITE);
+                buttons.get(i).setAlpha(1f);
             }
         }
     }

@@ -90,19 +90,18 @@ public class FinishActivity extends AppCompatActivity {
 
             if (currentlyLoggedIn || alwaysLoggedIn) {
             saveTest.setOnClickListener(view -> {
-                //if (wasLoggingIn) {
                 dr = FirebaseDatabase.getInstance().getReference("users");
                 dr.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        long count = snapshot.getChildrenCount();
-                        if (count < 8) {
-                            dr.child(userId).child("test" + (count - 2)).setValue(userTopic + "/" + average + "/" + questionsId.toString());
+                        long countRow = snapshot.getChildrenCount(); //počet riadkov v DB
+                        if (countRow < 8) {
+                            dr.child(userId).child("test" + (countRow - 2)).setValue(userTopic + "/" + average + "/" + questionsId.toString());
                             Intent intent = new Intent(FinishActivity.this, ProfileActivity.class);
                             startActivity(intent);
                         }
 
-                        if (count == 8) {
+                        if (countRow == 8) {
                             final Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
                                 @SuppressLint("SetTextI18n")
@@ -113,9 +112,9 @@ public class FinishActivity extends AppCompatActivity {
                                     dialog_question.setTextSize(18);
                                     yes_btn.setOnClickListener(view -> {
                                         dialog.dismiss();
-                                        String x = (String) snapshot.child("rewriteTest").getValue();
-                                        assert x != null;
-                                        dr.child(userId).child(x).
+                                        String row = (String) snapshot.child("rewriteTest").getValue();
+                                        assert row != null;
+                                        dr.child(userId).child(row).
                                                 setValue(userTopic + "/" + average + "/" + questionsId.toString());
                                         rewriteTest();
                                         Intent intent = new Intent(FinishActivity.this, ProfileActivity.class);
@@ -138,8 +137,6 @@ public class FinishActivity extends AppCompatActivity {
             });
             }
             else {
-                //Intent intent = new Intent(FinishActivity.this, Login.class);
-                //startActivity(intent);
                 saveTest.setVisibility(View.INVISIBLE);
             }
         }

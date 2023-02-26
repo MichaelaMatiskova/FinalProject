@@ -79,24 +79,14 @@ public class ProfileActivity extends AppCompatActivity {
                             test = test.replace(" ", "");
                             String[] text = test.split("/");
                             buttons.get(i).setText(text[0] + "          " + text[1] + "%");
-
-                            /*text[2] = text[2].substring(1, text[2].length() - 1);
-                            text[2] = text[2].replace(",", " ");
-                            String[] ids = text[2].split(" ");
-
-                            for (String id : ids) {
-                                questionId.add(Integer.valueOf(id));
-                            }*/
+                            buttons.get(i).setClickable(true);
+                            buttons.get(i).setAlpha(1f);
                         }
                         else {
-                            buttons.get(i).setVisibility(View.INVISIBLE);
+                            //buttons.get(i).setVisibility(View.INVISIBLE);
+                            buttons.get(i).setAlpha(0.35f);
+                            buttons.get(i).setClickable(false);
                         }
-
-                        /*buttons.get(i).setOnClickListener(view -> {
-                            Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
-                            intent.putExtra("questionId", questionId);
-                            startActivity(intent);
-                        });*/
                     }
                 }
             }
@@ -114,22 +104,27 @@ public class ProfileActivity extends AppCompatActivity {
                 for (int i = 0; i < buttons.size(); i++) {
                     int finalI = i;
                     buttons.get(i).setOnClickListener(view -> {
-                        String test = (String) snapshot.child(tests[finalI]).getValue();
-                        assert test != null;
-                        test = test.replace(" ", "");
-                        String[] text = test.split("/");
-                        text[2] = text[2].substring(1, text[2].length() - 1);
-                        text[2] = text[2].replace(",", " ");
-                        String[] ids = text[2].split(" ");
-
-                        for (String id : ids) {
-                            questionId.add(Integer.valueOf(id));
+                        if (buttons.get(finalI).getText().charAt(0) == 'T') {
+                            Toast.makeText(ProfileActivity.this, "Tu nemáš uložený test :D", Toast.LENGTH_LONG).show();
                         }
+                        else {
+                            String test = (String) snapshot.child(tests[finalI]).getValue();
+                            assert test != null;
+                            test = test.replace(" ", "");
+                            String[] text = test.split("/");
+                            text[2] = text[2].substring(1, text[2].length() - 1);
+                            text[2] = text[2].replace(",", " ");
+                            String[] ids = text[2].split(" ");
 
-                        Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
-                        intent.putExtra("questionId", questionId);
-                        intent.putExtra("userTopic", text[0].trim());
-                        startActivity(intent);
+                            for (String id : ids) {
+                                questionId.add(Integer.valueOf(id));
+                            }
+
+                            Intent intent = new Intent(ProfileActivity.this, QuestionMain.class);
+                            intent.putExtra("questionId", questionId);
+                            intent.putExtra("userTopic", text[0].trim());
+                            startActivity(intent);
+                        }
                     });
                 }
             }

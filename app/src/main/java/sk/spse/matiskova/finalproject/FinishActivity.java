@@ -24,6 +24,7 @@ import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,9 +53,11 @@ public class FinishActivity extends AppCompatActivity {
     private DatabaseReference dr;
     private String userId;
 
+    private ProgressBar progressBar;
+    private double average = 0;
     private static final String FILE_NAME = "myFile";
 
-    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    @SuppressLint({"SetTextI18n", "DefaultLocale", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +68,21 @@ public class FinishActivity extends AppCompatActivity {
         homeButton = findViewById(R.id.homeButton);
         correctA = findViewById(R.id.correctAnswers);
         saveTest = findViewById(R.id.saveTest);
-
+        progressBar = findViewById(R.id.progress_bar);
+        
+        progressBar.setMin(0);
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
         }
 
-        correctAnswer = 0;
+       //correctAnswer = 0;
 
-        double average = (double) Math.round(( (double) correctAnswer / numberOfQuestion * 100) * 10) / 10;
+        average = (double) Math.round(( (double) correctAnswer / numberOfQuestion * 100) * 10) / 10;
 
-        correctA.setText("Spravne odpovede " + correctAnswer + " / " + numberOfQuestion + "\n V percentach: " + average + " %");
+        //correctA.setText("Spravne odpovede " + correctAnswer + " / " + numberOfQuestion + "\n V percentach: " + average + " %");
+        correctA.setText(String.valueOf(average) + "%");
+        progressBar.setProgress((int) average);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

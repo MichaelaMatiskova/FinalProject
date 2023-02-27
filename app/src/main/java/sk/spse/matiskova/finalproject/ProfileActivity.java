@@ -28,16 +28,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ProfileActivity extends AppCompatActivity {
-
     private FirebaseUser user;
     private DatabaseReference reference;
-
     private String userID;
-
     private final ArrayList<Button> buttons = new ArrayList<>();
     private String[] tests = new String[] {"test1", "test2", "test3", "test4", "test5"};
-
-    private Button test1;
     private static final String FILE_NAME = "myFile";
     private ArrayList<Integer> questionId = new ArrayList<>();
 
@@ -47,7 +42,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
         reference = FirebaseDatabase.getInstance().getReference("users");
         userID = user.getUid();
 
@@ -57,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         final TextView fullNameTextView = findViewById(R.id.fullName);
         final TextView emailAddressTextView = findViewById(R.id.emailAddress);
-        test1 = findViewById(R.id.test1);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SetTextI18n")

@@ -63,11 +63,14 @@ public class QuestionMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Objects.requireNonNull(getSupportActionBar()).setTitle(userTopic);
 
         Intent intent = getIntent();
         ArrayList<Integer> temp = intent.getIntegerArrayListExtra("questionId");
+
+        correctAnswer = 0;
 
         if (temp == null) {
             generateId();

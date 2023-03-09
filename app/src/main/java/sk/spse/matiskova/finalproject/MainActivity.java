@@ -10,6 +10,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,8 +27,12 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Dialog dialog;
     private EditText count;
     public static Mode mode;
+    StorageReference storageReference;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -71,10 +77,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        storageReference = FirebaseStorage.getInstance().getReference();
         boolean isNetworkAvailable = isNetworkAvailable(Objects.requireNonNull(peekAvailableContext()));
 
         if (isNetworkAvailable) {
             login.setImageResource(R.drawable.profile);
+            if (fus != null && alwaysLoggedIn || fus != null && currentlyLoggedIn) {
+                StorageReference profileRef = storageReference.child("users/"+fus.getUid()+"/profile.jpg");
+                profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(login);
+                    }
+                });
+            }
         }
         else {
             login.setImageResource(R.drawable.crossed_person);

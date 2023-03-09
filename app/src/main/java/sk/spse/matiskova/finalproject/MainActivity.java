@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isNetworkAvailable = isNetworkAvailable(Objects.requireNonNull(peekAvailableContext()));
 
         if (isNetworkAvailable) {
-            login.setImageResource(R.drawable.profile);
+
             if (fus != null && alwaysLoggedIn || fus != null && currentlyLoggedIn) {
                 StorageReference profileRef = storageReference.child("users/"+fus.getUid()+"/profile.jpg");
                 profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -90,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
                         Picasso.get().load(uri).into(login);
                     }
                 });
+            }
+            else {
+                login.setImageResource(R.drawable.profile);
             }
         }
         else {

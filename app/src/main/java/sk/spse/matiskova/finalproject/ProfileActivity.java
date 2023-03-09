@@ -92,17 +92,17 @@ public class ProfileActivity extends AppCompatActivity {
                     emailAddressTextView.setText(email);
 
                     for (int i = 0; i < buttons.size(); i++) {
-                        String test = (String) snapshot.child(tests[i]).getValue();
+                        String row = (String) snapshot.child(tests[i]).getValue();
 
-                        if (test != null) {
-                            test = test.replace(" ", "");
-                            String[] text = test.split("/");
-                            buttons.get(i).setText(text[0] + "          " + text[1] + "%");
+                        if (row != null) {
+                            row = row.replace(" ", "");
+                            String[] text = row.split("/");
+                            String subject = text[0].equals("biology") ? "Biológia" : "Chémia";
+                            buttons.get(i).setText(subject + "          " + text[1] + "%");
                             buttons.get(i).setClickable(true);
                             buttons.get(i).setAlpha(1f);
                         }
                         else {
-                            //buttons.get(i).setVisibility(View.INVISIBLE);
                             buttons.get(i).setAlpha(0.35f);
                             buttons.get(i).setClickable(false);
                         }
@@ -127,10 +127,10 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Tu nemáš uložený test :D", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            String test = (String) snapshot.child(tests[finalI]).getValue();
-                            assert test != null;
-                            test = test.replace(" ", "");
-                            String[] text = test.split("/");
+                            String row = (String) snapshot.child(tests[finalI]).getValue();
+                            assert row != null;
+                            row = row.replace(" ", "");
+                            String[] text = row.split("/");
                             text[2] = text[2].substring(1, text[2].length() - 1);
                             text[2] = text[2].replace(",", " ");
                             String[] ids = text[2].split(" ");

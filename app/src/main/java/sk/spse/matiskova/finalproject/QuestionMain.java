@@ -74,12 +74,7 @@ public class QuestionMain extends AppCompatActivity {
 
         if (temp == null) {
             generateId();
-            if (userTopic.equals("biology")) {
-                Objects.requireNonNull(getSupportActionBar()).setTitle("Biológia");
-            }
-            else {
-                Objects.requireNonNull(getSupportActionBar()).setTitle("Chémia");
-            }
+
         }
         else {
             questionsId.clear();
@@ -88,6 +83,13 @@ public class QuestionMain extends AppCompatActivity {
             userTopic = intent.getStringExtra("userTopic");
             //userTopic = intent.getStringExtra("userTopic");
             mode = MainActivity.Mode.Testing;
+        }
+
+        if (userTopic.equals("biology")) {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Biológia");
+        }
+        else {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Chémia");
         }
 
         question = findViewById(R.id.question);

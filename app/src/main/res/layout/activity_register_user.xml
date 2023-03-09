@@ -58,7 +58,7 @@
         android:id="@+id/registerUser"
         android:layout_width="328dp"
         android:layout_height="75dp"
-        android:backgroundTint="#0ED689"
+        android:backgroundTint="#142B57"
         android:text="Register User"
         android:textColor="#FFFFFF"
         android:textSize="26sp"

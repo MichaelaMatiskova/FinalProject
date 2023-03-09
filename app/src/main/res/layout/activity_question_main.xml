@@ -57,7 +57,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -70,7 +70,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -83,7 +83,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -96,7 +96,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -109,7 +109,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -122,7 +122,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -135,7 +135,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <Button
@@ -148,7 +148,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:cornerRadius="20sp"
-                app:strokeColor="#2196F3"
+                app:strokeColor="#142B57"
                 app:strokeWidth="3dp" />
 
             <RelativeLayout

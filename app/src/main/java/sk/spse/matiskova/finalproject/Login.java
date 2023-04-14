@@ -86,25 +86,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String password = editTextPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
-            editTextEmail.setError("Email is required");
+            editTextEmail.setError("Vyžaduje sa email");
             editTextEmail.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please enter a valid email!");
+            editTextEmail.setError("Zadajte platný e-mail");
             editTextEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            editTextPassword.setError("Password is required!");
+            editTextPassword.setError("Vyžaduje sa heslo");
             editTextPassword.requestFocus();
             return;
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Min password length should be 6 characters!");
+            editTextPassword.setError("Minimálna dĺžka hesla je 6 znakov!");
             editTextPassword.requestFocus();
             return;
         }
@@ -132,7 +132,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     currentlyLoggedIn = true;
                 }
                 else {
-                    Toast.makeText(Login.this, "Failed to login! Please check you credential or check your Internet connection.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, "Prihlásenie zlyhalo. Skúste to znova! Skontrolujte svoje internetové pripojenie.", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -151,36 +151,36 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onClick(View v) {
                 final EditText resetMail = new EditText(v.getContext());
                 final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Reset password?");
-                passwordResetDialog.setMessage("\nEnter your email to receive the reset link");
+                passwordResetDialog.setTitle("Obnoviť heslo?");
+                passwordResetDialog.setMessage("\nZadajte svoj e-mail, aby ste dostali odkaz na obnovenie");
                 passwordResetDialog.setView(resetMail);
                 passwordResetDialog.setIcon(R.drawable.forgot);
 
-                passwordResetDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                passwordResetDialog.setPositiveButton("Hotovo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         final String mail = resetMail.getText().toString().trim();
 
                         if (TextUtils.isEmpty(mail)) {
-                            Toast.makeText(getApplication(), "Enter valid email address.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "Zadajte platnú e-mailovú adresu.", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
                             mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(Login.this, "Reset link sent to your email.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Odkaz bol odoslaný na váš e-mail", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Login.this, "Error ! Reset link not sent." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Chyba! Odkaz na obnovenie nebol odoslaný." + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                     }
                 });
-                passwordResetDialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                passwordResetDialog.setNegativeButton("Zrušiť", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Close The Dialog Box

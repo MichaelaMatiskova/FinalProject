@@ -62,31 +62,31 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String nickname = editTextNickname.getText().toString().trim();
 
         if (nickname.isEmpty()) {
-            editTextNickname.setError("Nickname is required");
+            editTextNickname.setError("Vyžaduje si prezývku");
             editTextEmail.requestFocus();
             return;
         }
 
         if (email.isEmpty()) {
-            editTextEmail.setError("Email is required");
+            editTextEmail.setError("Vyžaduje sa email");
             editTextEmail.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please provide valid email");
+            editTextEmail.setError("Zadajte platný e-mail");
             editTextEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty()) {
-            editTextPassword.setError("Password is required");
+            editTextPassword.setError("Vyžaduje sa heslo");
             editTextPassword.requestFocus();
             return;
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Min password length should be 6 characters!");
+            editTextPassword.setError("Minimálna dĺžka hesla je 6 znakov!");
             editTextPassword.requestFocus();
             return;
         }
@@ -108,7 +108,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()){
-                                        Toast.makeText(RegisterUser.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUser.this, "Používateľ bol úspešne zaregistrovaný!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(RegisterUser.this, ProfileActivity.class));
                                         StoredDataUsingSHaredPref(true);
@@ -117,7 +117,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rewriteTest").setValue("test1");
                                         currentlyLoggedIn = true;
                                     } else {
-                                        Toast.makeText(RegisterUser.this, "Failed to register. Try again! Check your Internet connection.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUser.this, "Registrácia zlyhala. Skúste to znova! Skontrolujte svoje internetové pripojenie.", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                         RegisterUser.super.onBackPressed();
                                     }
@@ -125,7 +125,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                             });
                             progressBar.setVisibility(View.GONE);
                         } else {
-                            Toast.makeText(RegisterUser.this, "Failed to register.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUser.this, "Registrácia zlyhala.", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

@@ -112,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Stalo sa niečo zlé!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -149,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Stalo sa niečo zlé!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -193,7 +193,7 @@ public class ProfileActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Niečo zlyhalo, skúste to znova.", Toast.LENGTH_LONG).show();
             }
         });
     }

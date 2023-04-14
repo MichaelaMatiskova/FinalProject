@@ -125,10 +125,10 @@ public class QuestionMain extends AppCompatActivity {
                 revealAnswerLearning();
 
                 if (currentQuestionPosition + 1 == numberOfQuestion) {
-                    nextButtonLearning.setText("Finish");
+                    nextButtonLearning.setText("Hotovo");
                 }
 
-                if (nextButtonLearning.getText().toString().equals("Finish")) {
+                if (nextButtonLearning.getText().toString().equals("Hotovo")) {
                     nextButtonLearning.setClickable(false);
                     final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
@@ -141,7 +141,7 @@ public class QuestionMain extends AppCompatActivity {
                             yes_btn.setOnClickListener(view -> {
                                 dialog.dismiss();
                                 currentQuestionPosition = 0;
-                                nextButtonTesting.setText("Next");
+                                nextButtonTesting.setText("Ďalej");
                                 submitButton.setVisibility(View.VISIBLE);
                                 nextButtonTesting.setVisibility(View.VISIBLE);
                                 nextButtonLearning.setVisibility(View.INVISIBLE);
@@ -195,7 +195,7 @@ public class QuestionMain extends AppCompatActivity {
                     }
                 }
                 if (!checkEnterButton) {
-                    Toast.makeText(getApplicationContext(), "Enter the answer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Zadajte odpoveď", Toast.LENGTH_SHORT).show();
                 } else {
                     revealAnswerTesting();
                     clickableOff();
@@ -207,13 +207,13 @@ public class QuestionMain extends AppCompatActivity {
 
         nextButtonTesting.setOnClickListener(view -> {
             if (!checkSubmit) {
-                Toast.makeText(getApplicationContext(), "Please submit this question", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Prosím, odošlite túto otázku", Toast.LENGTH_SHORT).show();
             } else {
                 changeNextquestion();
                 clickableOn();
             }
 
-            if (nextButtonTesting.getText().toString().equals("Finish") && checkSubmit) {
+            if (nextButtonTesting.getText().toString().equals("Hotovo") && checkSubmit) {
                 Intent intent = new Intent(QuestionMain.this, FinishActivity.class);
                 startActivity(intent);
             }
@@ -274,7 +274,7 @@ public class QuestionMain extends AppCompatActivity {
         currentQuestionPosition++;
 
         if (currentQuestionPosition + 1 == numberOfQuestion) {
-            nextButtonTesting.setText("Finish");
+            nextButtonTesting.setText("Hotovo");
         }
 
         if (currentQuestionPosition < numberOfQuestion) {

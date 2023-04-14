@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
         alwaysLoggedIn = ReadDataUsingSHaredPref();
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Zub v hrsti");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Medicína v hrsti");
 
         Button chemistryButton = findViewById(R.id.chemistryButton);
         Button biologyButton = findViewById(R.id.biologyButton);

@@ -63,7 +63,7 @@ public class QuestionMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         //Objects.requireNonNull(getSupportActionBar()).setTitle(userTopic);
 
@@ -145,6 +145,7 @@ public class QuestionMain extends AppCompatActivity {
                                 submitButton.setVisibility(View.VISIBLE);
                                 nextButtonTesting.setVisibility(View.VISIBLE);
                                 nextButtonLearning.setVisibility(View.INVISIBLE);
+                                newQuestion(questionsId.get(0));
                                 startTest();
                             });
 

@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         if (isNetworkAvailable) {
 
             if (fus != null && alwaysLoggedIn || fus != null && currentlyLoggedIn) {
-                StorageReference profileRef = storageReference.child("users/"+fus.getUid()+"/profile.jpg");
+                StorageReference profileRef = storageReference.child("users/" + fus.getUid() + "/profile.jpg");
                 profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {

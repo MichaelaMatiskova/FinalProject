@@ -327,12 +327,18 @@ public class QuestionMain extends AppCompatActivity {
 
     private void generateId() {
         questionsId.clear();
-        Set<Integer> temp = new TreeSet<>();
-        int questionCount = loader.getRowCount(userTopic);
-        while (temp.size() != numberOfQuestion) {
-            temp.add(rd.nextInt(questionCount) + 1);
-        }
-        questionsId.addAll(temp);
+        //Set<Integer> temp = new TreeSet<>();
+        //int questionCount = loader.getRowCount(userTopic);
+        //while (temp.size() != numberOfQuestion) {
+        //    temp.add(rd.nextInt(questionCount) + 1);
+        //}
+        //questionsId.addAll(temp);
+        questionsId.add(60);
+        questionsId.add(62);
+        questionsId.add(112);
+        questionsId.add(85);
+        questionsId.add(86);
+
     }
 
     private void set20SizeText() {
@@ -352,6 +358,8 @@ public class QuestionMain extends AppCompatActivity {
                 } else {
                     textSize = 16;
                 }
+            } else {
+                textSize = 18;
             }
         }
     }

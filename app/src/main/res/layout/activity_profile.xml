@@ -49,6 +49,7 @@
         app:strokeWidth="2dp"
         app:shapeAppearanceOverlay="@style/Circular"
         android:scaleType="centerCrop"
+        android:orientation="horizontal"
         app:srcCompat="@drawable/profile"
         app:strokeColor="#142B57"/>
 
